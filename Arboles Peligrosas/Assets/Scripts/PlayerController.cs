@@ -28,9 +28,8 @@ public class PlayerController : MonoBehaviour, Selectable
 
     void movePlayer()
     {
-        if (transform.position == destination) return;
-        
-        transform.position = movement.getPosition();
+        GetComponent<Rigidbody>().AddForce(-(transform.position - destination) * speed);
+        //transform.position = movement.getPosition();
     }
 
     void setDestination(Ray ray)
