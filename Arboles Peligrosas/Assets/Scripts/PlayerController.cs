@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, Selectable
 {
     private Vector3 destination;
     private float speed;
     private Lerp movement;
+    private UI_SelectedFrame sfInfo;
 
-	// Use this for initialization
 	void Start ()
     {
-        speed = 5.0f;
+        speed = 5f;
         destination = transform.position;
         movement = new Lerp(transform.position, transform.position, speed);
+        sfInfo.name = "Player";
+        sfInfo.health = 100f;
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
     {
         if (Input.GetMouseButtonDown(0)) //left mouse button
@@ -42,29 +43,7 @@ public class PlayerController : MonoBehaviour
 
         movement = new Lerp(transform.position, destination, speed);
     }
+
+    public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
 
-class Lerp
-{
-    private Vector3 start, end;
-    private float distance, timeToEnd, currTime;
-
-    public Lerp(Vector3 s, Vector3 e, float speed)
-    {
-        start = s;
-        end = e;
-        distance = Vector3.Distance(s, e);
-        timeToEnd = distance / speed;
-        currTime = 0;
-    }
-
-    public Vector3 getPosition()
-    {
-        currTime += Time.deltaTime;
-
-        if (currTime >= timeToEnd)
-            currTime = timeToEnd;
-
-        return Vector3.Lerp(start, end, currTime/timeToEnd);
-    }
-}
