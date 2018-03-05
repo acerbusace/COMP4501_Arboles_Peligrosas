@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, Selectable
 {
     private Vector3 destination;
     private float speed;
     private Lerp movement;
+    private UI_SelectedFrame sfInfo;
 
-	// Use this for initialization
 	void Start ()
     {
-        speed = 5.0f;
+        speed = 5f;
         destination = transform.position;
         movement = new Lerp(transform.position, transform.position, speed);
+        sfInfo.name = "Player";
+        sfInfo.health = 100f;
 	}
-	
-	// Update is called once per frame
+
 	void Update ()
     {
         if (Input.GetMouseButtonDown(0)) //left mouse button
@@ -42,5 +43,7 @@ public class PlayerController : MonoBehaviour
 
         movement = new Lerp(transform.position, destination, speed);
     }
+
+    public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
 
