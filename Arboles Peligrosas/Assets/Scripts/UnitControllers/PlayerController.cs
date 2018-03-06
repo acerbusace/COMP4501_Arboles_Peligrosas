@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, Selectable
 {
-    private Vector3 destination;
+    private Vector3 destination, lastPosition;
     private float speed;
     private Lerp movement;
     private UI_SelectedFrame sfInfo;
 
-	void Start ()
+    void Start()
     {
         speed = 5f;
         destination = transform.position;
         movement = new Lerp(transform.position, transform.position, speed);
         sfInfo.name = "Player";
         sfInfo.health = 100f;
-	}
+    }
 
-	void Update ()
+    void FixedUpdate()
     {
         movePlayer();
-	}
+    }
 
     void movePlayer()
     {
         //GetComponent<Rigidbody>().AddForce(-(transform.position - destination) * speed);
+        lastPosition = transform.position;
         transform.position = movement.getPosition();
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        transform.position = lastPosition;
+        
+        if (col.gameObject.tag != "Ground")
+            movement = new Lerp(transform.position, transform.position, speed);
     }
 
     public void setDestination(Ray ray)
@@ -34,7 +43,8 @@ public class PlayerController : MonoBehaviour, Selectable
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            destination = hit.point + new Vector3(0, 0.5f, 0);
+            destination = hit.point;
+            destination.y = 0.5f; //terrain.y @ destination.x & destination.z + playerSize.y/2
         }
 
         movement = new Lerp(transform.position, destination, speed);
