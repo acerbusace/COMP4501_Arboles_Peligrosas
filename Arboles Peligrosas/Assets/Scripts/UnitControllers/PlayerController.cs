@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour, Selectable
 
     void movePlayer()
     {
-        //GetComponent<Rigidbody>().AddForce(-(transform.position - destination) * speed);
         lastPosition = transform.position;
         transform.position = movement.getPosition();
     }
