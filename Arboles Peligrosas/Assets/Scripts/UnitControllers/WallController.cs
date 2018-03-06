@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotController : MonoBehaviour, Selectable {
-    UI_SelectedFrame sfInfo;
+public class WallController : MonoBehaviour, Selectable {
+
+    private UI_SelectedFrame sfInfo;
 
 	// Use this for initialization
 	void Start () {
-        sfInfo.name = "Robot";
-        sfInfo.health = 100;
+        sfInfo.name = "Wall";
+        sfInfo.health = 100f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void setDestination(Ray ray) { }
 
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
