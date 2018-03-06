@@ -20,19 +20,16 @@ public class PlayerController : MonoBehaviour, Selectable
 
 	void Update ()
     {
-        if (Input.GetMouseButtonDown(0)) //left mouse button
-            setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
-
         movePlayer();
 	}
 
     void movePlayer()
     {
-        GetComponent<Rigidbody>().AddForce(-(transform.position - destination) * speed);
-        //transform.position = movement.getPosition();
+        //GetComponent<Rigidbody>().AddForce(-(transform.position - destination) * speed);
+        transform.position = movement.getPosition();
     }
 
-    void setDestination(Ray ray)
+    public void setDestination(Ray ray)
     {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))

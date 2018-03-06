@@ -16,5 +16,7 @@ public class RobotController : MonoBehaviour, Selectable {
 		
 	}
 
+    public void setDestination(Ray ray) { }
+
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }

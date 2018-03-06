@@ -26,6 +26,10 @@ public class SelectController : MonoBehaviour {
             setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
             setSelectableInfo();
         }
+        else if (Input.GetMouseButtonDown(1))
+        { //left mouse button
+            sf.GetComponent<Selectable>().setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
+        }
     }
 
     void setSelectableUnit(Ray ray)

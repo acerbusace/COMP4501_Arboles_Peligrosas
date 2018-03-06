@@ -5,6 +5,7 @@ using UnityEngine;
 public interface Selectable
 {
     UI_SelectedFrame getSFInfo();
+    void setDestination(Ray ray);
 }
 
 
