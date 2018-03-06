@@ -54,8 +54,8 @@ public class SelectController : MonoBehaviour {
             sfInfo = sf.GetComponent<Selectable>().getSFInfo();
 
             print("Name: " + sfInfo.name + " > " + sfInfo.health);
-            unitNameText.text = sfInfo.name;
-            unitHealthText.text = sfInfo.health.ToString();
+            unitNameText.text = "Unit: " + sfInfo.name;
+            unitHealthText.text = "Health: " + sfInfo.health.ToString();
         }
     }
 }
