@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SelectController : MonoBehaviour {
 
-    private GameObject sf;
+    private List<GameObject> selectedFrames;
     private UI_SelectedFrame sfInfo;
     private List<string> sfSupportedTags;
 
@@ -14,6 +14,7 @@ public class SelectController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        selectedFrames = new List<GameObject>();
         sfSupportedTags = new List<string>();
         sfSupportedTags.Add("Selectable");
     }
@@ -28,7 +29,11 @@ public class SelectController : MonoBehaviour {
         }
         else if (Input.GetMouseButtonDown(1))
         { //left mouse button
-            sf.GetComponent<Selectable>().setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
+            print("sf count: " + selectedFrames.Count);
+            foreach (GameObject sf in selectedFrames)
+            {
+                sf.GetComponent<Selectable>().setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
+            }
         }
     }
 
@@ -41,7 +46,7 @@ public class SelectController : MonoBehaviour {
             {
                 if (sfSupportedTags.Contains(hit.transform.gameObject.tag))
                 {
-                    sf = hit.transform.gameObject;
+                    selectedFrames.Add(hit.transform.gameObject);
                 }
             }
         }
@@ -49,11 +54,10 @@ public class SelectController : MonoBehaviour {
 
     void setSelectableInfo()
     {
-        if (sf != null)
+        if (selectedFrames.Count > 0)
         {
-            sfInfo = sf.GetComponent<Selectable>().getSFInfo();
-
-            print("Name: " + sfInfo.name + " > " + sfInfo.health);
+            sfInfo = selectedFrames[selectedFrames.Count - 1].GetComponent<Selectable>().getSFInfo();
+            
             unitNameText.text = "Unit: " + sfInfo.name;
             unitHealthText.text = "Health: " + sfInfo.health.ToString();
         }
