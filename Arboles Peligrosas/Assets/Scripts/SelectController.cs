@@ -8,6 +8,7 @@ public class SelectController : MonoBehaviour {
     private List<GameObject> selectedFrames;
     private UI_SelectedFrame sfInfo;
     private List<string> sfSupportedTags;
+    private bool selectMultiple;
 
     public Text unitNameText;
     public Text unitHealthText;
@@ -17,21 +18,23 @@ public class SelectController : MonoBehaviour {
         selectedFrames = new List<GameObject>();
         sfSupportedTags = new List<string>();
         sfSupportedTags.Add("Selectable");
+        selectMultiple = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            selectMultiple = true;
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+            selectMultiple = false;
+
+        if (Input.GetMouseButtonDown(0)) {
             //left mouse button
             setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
             setSelectableInfo();
-        }
-        else if (Input.GetMouseButtonDown(1))
-        { //left mouse button
+        } else if (Input.GetMouseButtonDown(1)) { //left mouse button
             print("sf count: " + selectedFrames.Count);
-            foreach (GameObject sf in selectedFrames)
-            {
+            foreach (GameObject sf in selectedFrames) {
                 sf.GetComponent<Selectable>().setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
             }
         }
@@ -46,6 +49,9 @@ public class SelectController : MonoBehaviour {
             {
                 if (sfSupportedTags.Contains(hit.transform.gameObject.tag))
                 {
+                    if (!selectMultiple)
+                        selectedFrames.Clear();
+
                     selectedFrames.Add(hit.transform.gameObject);
                 }
             }
