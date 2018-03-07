@@ -10,6 +10,10 @@ public class SelectController : MonoBehaviour {
     private List<string> sfSupportedTags;
     private bool selectMultiple;
 
+    private List<GameObject> sfInfoPannels;
+    public GameObject sfInfoPannelPrefab;
+    public GameObject UI_Canvas;
+
     public Text unitNameText;
     public Text unitHealthText;
 
@@ -18,6 +22,7 @@ public class SelectController : MonoBehaviour {
         selectedFrames = new List<GameObject>();
         sfSupportedTags = new List<string>();
         sfSupportedTags.Add("Selectable");
+        sfInfoPannels = new List<GameObject>();
         selectMultiple = false;
     }
 	
@@ -58,14 +63,54 @@ public class SelectController : MonoBehaviour {
         }
     }
 
+    GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pos = new Vector3()) {
+        GameObject pannel = Instantiate(sfInfoPannelPrefab, UI_Canvas.transform, false);
+        pannel.transform.position = pos;
+
+        Text unitNameText = pannel.transform.Find("UnitNameText").GetComponent<Text>();
+        unitNameText.text = "Unit: " + sfInfo.name;
+
+        Text unitHealthText = pannel.transform.Find("UnitHealthText").GetComponent<Text>();
+        unitHealthText.text = "Health: " + sfInfo.health.ToString();
+
+        return pannel;
+    }
+
+    void clearSelectableInfo() {
+        foreach (GameObject sfInfoPannel in sfInfoPannels) {
+            Destroy(sfInfoPannel);
+        }
+
+        sfInfoPannels.Clear();
+    }
+
     void setSelectableInfo()
     {
-        if (selectedFrames.Count > 0)
-        {
-            sfInfo = selectedFrames[selectedFrames.Count - 1].GetComponent<Selectable>().getSFInfo();
-            
-            unitNameText.text = "Unit: " + sfInfo.name;
-            unitHealthText.text = "Health: " + sfInfo.health.ToString();
+        clearSelectableInfo();
+
+        int i = 0;
+        Vector3 pos = new Vector3(0f, 0f, 0f);
+
+        foreach (GameObject sf in selectedFrames) {
+            UI_SelectedFrame sfInfo = sf.GetComponent<Selectable>().getSFInfo();
+
+
+            GameObject pannel = createInfoPannel(sfInfo, pos);
+            sfInfoPannels.Add(pannel);
+
+            RectTransform rt = pannel.GetComponent<RectTransform>();
+
+            pos += new Vector3(0f, rt.rect.height, 0f);
+            ++i;
         }
+
+
+        //if (selectedFrames.Count > 0)
+        //{
+        //    sfInfo = selectedFrames[selectedFrames.Count - 1].GetComponent<Selectable>().getSFInfo();
+            
+        //    unitNameText.text = "Unit: " + sfInfo.name;
+        //    unitHealthText.text = "Health: " + sfInfo.health.ToString();
+        //}
     }
 }

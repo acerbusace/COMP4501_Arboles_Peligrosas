@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private float speed = 10f;
+    private float scrollSpeed = 10f;
     private float minDist = 15f;
     private float maxDist = 90f;
     private float sensitivity = 10f;
@@ -16,9 +17,18 @@ public class CameraController : MonoBehaviour
 
         transform.position = new Vector3(transform.position.x + x, transform.position.y, transform.position.z + z);
 
-        float fov = Camera.main.fieldOfView;
-        fov += -Input.GetAxis("Mouse ScrollWheel") * sensitivity;
-        fov = Mathf.Clamp(fov, minDist, maxDist);
-        Camera.main.fieldOfView = fov;
+        //float fov = Camera.main.fieldOfView;
+        //fov += -Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+        //fov = Mathf.Clamp(fov, minDist, maxDist);
+        //Camera.main.fieldOfView = fov;
+
+        float scroll = Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+        if (scroll != 0f) {
+            float y = scrollSpeed * speed * Time.deltaTime;
+            if (scroll > 0f)
+                transform.position = new Vector3(transform.position.x, transform.position.y - y, transform.position.z);
+            else if (scroll < 0f)
+                transform.position = new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
+        }
     }
 }
