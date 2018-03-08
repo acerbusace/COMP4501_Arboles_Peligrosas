@@ -33,13 +33,21 @@ public class Resources : MonoBehaviour {
         return stone += amount;
     }
 
-    public void useWood(int amount)
+    public bool useWood(int amount)
     {
+        if (wood < amount)
+            return false;
+         
         wood -= amount;
+        return true;
     }
 
-    public void useStone(int amount)
+    public bool useStone(int amount)
     {
+        if (stone < amount)
+            return false;
+
         stone -= amount;
+        return true;
     }
 }

@@ -2,6 +2,79 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Movement : MonoBehaviour, Action
+{
+    private List<Vector3> destinations;
+    private Vector3 lastPosition;
+    private Lerp movement;
+    private float speed;
+
+    Status status;
+
+    public Movement()
+    {
+        destinations = new List<Vector3>();
+    }
+
+    public void start()
+    {
+        if (destinations.Count == 0) return;
+
+        movement = new Lerp(transform.position, destinations[0], speed);
+        status = Status.RUNNING;
+    }
+
+    public void stop()
+    {
+        status = Status.FINISHED;
+
+        if (destinations.Count == 0) return;
+
+        destinations.RemoveAt(0);
+    }
+
+    public Status getStatus()
+    {
+        return status;
+    }
+
+    void FixedUpdate()
+    {
+        if (status == Status.RUNNING)
+            move();
+    }
+
+    void move()
+    {
+        lastPosition = transform.position;
+        transform.position = movement.getPosition();
+
+        if (lastPosition == transform.position)
+        {
+            stop();
+            return;
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (status != Status.RUNNING)
+        {
+            stop();
+            return;
+        }
+
+        transform.position = lastPosition;
+
+        if (col.gameObject.tag != "Ground")
+            stop();
+    }
+
+    public void clear() { destinations.Clear(); stop(); }
+    public void addDestination(Vector3 dest) { destinations.Add(dest); }
+    public void setSpeed(float s) { speed = s; }
+}
+
 class Lerp
 {
     private Vector3 start, end;
@@ -38,12 +111,3 @@ class Lerp
     return false;
 }
 */
-
-
-
-
-
-
-
-
-public class Movement : MonoBehaviour { }

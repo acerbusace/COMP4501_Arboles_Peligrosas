@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Selectable
   - Ground
+  - Tree
+  - Stone
   layers:
   - Default
   - TransparentFX

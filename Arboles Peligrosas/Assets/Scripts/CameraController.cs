@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour
 {
     private float speed = 10f;
     private float scrollSpeed = 10f;
-    private float minDist = 15f;
-    private float maxDist = 90f;
+    private float minDist = 10f;
+    private float maxDist = 35f;
     private float sensitivity = 10f;
 
     void Update()
@@ -25,9 +25,9 @@ public class CameraController : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel") * sensitivity;
         if (scroll != 0f) {
             float y = scrollSpeed * speed * Time.deltaTime;
-            if (scroll > 0f)
+            if (scroll > 0f && transform.position.y > minDist)
                 transform.position = new Vector3(transform.position.x, transform.position.y - y, transform.position.z);
-            else if (scroll < 0f)
+            else if (scroll < 0f && transform.position.y < maxDist)
                 transform.position = new Vector3(transform.position.x, transform.position.y + y, transform.position.z);
         }
     }

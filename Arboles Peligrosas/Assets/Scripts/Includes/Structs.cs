@@ -36,7 +36,4 @@ public struct UI_SelectedFrame
 
 
 
-
-
-
 public class Structs : MonoBehaviour {}

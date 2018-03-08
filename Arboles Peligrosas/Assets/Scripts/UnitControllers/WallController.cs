@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class WallController : MonoBehaviour, Selectable {
 
     private UI_SelectedFrame sfInfo;
@@ -21,3 +21,4 @@ public class WallController : MonoBehaviour, Selectable {
 
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
+*/

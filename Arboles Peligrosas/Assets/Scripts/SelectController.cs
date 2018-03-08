@@ -8,6 +8,7 @@ public class SelectController : MonoBehaviour {
     private List<GameObject> selectedFrames;
     private UI_SelectedFrame sfInfo;
     private List<string> sfSupportedTags;
+    //private List<string> resourseTags;
     private bool selectMultiple;
 
     private List<GameObject> sfInfoPannels;
@@ -37,10 +38,46 @@ public class SelectController : MonoBehaviour {
             //left mouse button
             setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
             setSelectableInfo();
-        } else if (Input.GetMouseButtonDown(1)) { //left mouse button
-            print("sf count: " + selectedFrames.Count);
-            foreach (GameObject sf in selectedFrames) {
-                sf.GetComponent<Selectable>().setDestination(Camera.main.ScreenPointToRay(Input.mousePosition));
+        } else if (Input.GetMouseButtonDown(1)) { //right mouse button
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.gameObject.tag == "Tree" || hit.transform.gameObject.tag == "Stone")
+                {
+                    if (selectMultiple)
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            sf.GetComponent<Selectable>().queueGather(hit);
+                        }
+                    }
+                    else
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            sf.GetComponent<Selectable>().gather(hit);
+                        }
+                    }
+                }
+                else
+                {
+                    if (selectMultiple)
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            sf.GetComponent<Selectable>().queueMove(hit);
+                        }
+                    }
+                    else
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            sf.GetComponent<Selectable>().move(hit);
+                        }
+                    }
+                }
             }
         }
     }
@@ -56,8 +93,8 @@ public class SelectController : MonoBehaviour {
                 {
                     if (!selectMultiple)
                         selectedFrames.Clear();
-
-                    selectedFrames.Add(hit.transform.gameObject);
+                    if (!selectedFrames.Contains(hit.transform.gameObject))
+                        selectedFrames.Add(hit.transform.gameObject);
                 }
             }
         }
@@ -71,7 +108,7 @@ public class SelectController : MonoBehaviour {
         unitNameText.text = "Unit: " + sfInfo.name;
 
         Text unitHealthText = pannel.transform.Find("UnitHealthText").GetComponent<Text>();
-        unitHealthText.text = "Health: " + sfInfo.health.ToString();
+        unitHealthText.text = "Health: " + ((int)sfInfo.health).ToString();
 
         return pannel;
     }
