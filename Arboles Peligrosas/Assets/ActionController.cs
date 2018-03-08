@@ -39,7 +39,7 @@ public class ActionController : MonoBehaviour {
                         foreach (GameObject sf in selectedFrames)
                         {
                             if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
-                                sf.GetComponent<Moveable>().queueGather(hit);
+                                sf.GetComponent<Actor>().queueGather(hit);
                         }
                     }
                     else
@@ -47,7 +47,7 @@ public class ActionController : MonoBehaviour {
                         foreach (GameObject sf in selectedFrames)
                         {
                             if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
-                                sf.GetComponent<Moveable>().gather(hit);
+                                sf.GetComponent<Actor>().gather(hit);
                         }
                     }
                 }
@@ -58,7 +58,7 @@ public class ActionController : MonoBehaviour {
                         foreach (GameObject sf in selectedFrames)
                         {
                             if (HelperFunctions.containsTag("Moveable", sf.gameObject.tag))
-                                sf.GetComponent<Moveable>().queueMove(hit);
+                                sf.GetComponent<Actor>().queueMove(hit);
                         }
                     }
                     else
@@ -66,7 +66,7 @@ public class ActionController : MonoBehaviour {
                         foreach (GameObject sf in selectedFrames)
                         {
                             if (HelperFunctions.containsTag("Moveable", sf.gameObject.tag))
-                                sf.GetComponent<Moveable>().move(hit);
+                                sf.GetComponent<Actor>().move(hit);
                         }
                     }
                 }

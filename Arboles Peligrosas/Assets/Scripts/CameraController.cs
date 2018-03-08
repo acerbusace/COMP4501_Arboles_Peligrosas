@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public float deceleration;
 
     private Vector3 velocity = new Vector3();
-    private float maxVelocity = 100f;
+    private float maxVelocity = 50f;
     private float minDist = 10f;
     private float maxDist = 35f;
 
