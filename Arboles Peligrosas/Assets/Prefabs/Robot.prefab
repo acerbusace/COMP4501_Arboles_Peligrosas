@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad120b764878fc84591e13c78100d63e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
 --- !u!114 &114296276964535948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -124,6 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16dfe48486b1b0742a52e81edd86bb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gatherSpeed: 0.5
+  gatherDistance: 5
 --- !u!114 &114456154470403906
 MonoBehaviour:
   m_ObjectHideFlags: 1

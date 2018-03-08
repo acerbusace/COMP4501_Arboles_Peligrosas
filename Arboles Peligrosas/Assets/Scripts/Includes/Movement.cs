@@ -7,7 +7,7 @@ public class Movement : MonoBehaviour, Action
     private List<Vector3> destinations;
     private Vector3 lastPosition;
     private Lerp movement;
-    private float speed;
+    public float speed;
 
     Status status;
 

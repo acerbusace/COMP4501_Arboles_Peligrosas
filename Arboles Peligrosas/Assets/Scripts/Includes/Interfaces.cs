@@ -101,6 +101,7 @@ public class Actor : MonoBehaviour, Selectable
 
 public class Resource: MonoBehaviour
 {
+    protected float gatherRate;
     protected float remaining; // amount of resource left
 
     
@@ -110,16 +111,17 @@ public class Resource: MonoBehaviour
      */
     public bool gather(float gatherAmount, out float amountGathered)
     {
+        gatherAmount *= gatherRate;
         if (remaining > gatherAmount)
         {
             remaining -= gatherAmount;
             amountGathered = gatherAmount;
-            return true;
+            return false;
         } else
         {
             amountGathered = remaining;
             remaining = 0f;
-            return false;
+            return true;
         }
     }
 
@@ -137,6 +139,7 @@ public class Tree: Resource
     public Tree()
     {
         remaining = 10f;
+        gatherRate = 1f;
     }
 }
 
@@ -145,6 +148,7 @@ public class Stone : Resource
     public Stone()
     {
         remaining = 5f;
+        gatherRate = 0.25f;
     }
 }
 

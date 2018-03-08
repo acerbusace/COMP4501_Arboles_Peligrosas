@@ -8,9 +8,6 @@ public class ResourceController : MonoBehaviour {
     private float wood;
     private float stone;
 
-    public Text WoodText;
-    public Text StoneText;
-
     private List<GameObject> resources;
     public GameObject treePrefab;
     public GameObject stonePrefab;
@@ -54,13 +51,6 @@ public class ResourceController : MonoBehaviour {
 
             resources.Add(stone);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        WoodText.text = "Wood: " + ((int)wood).ToString();
-        StoneText.text = "Stone: " + ((int)stone).ToString();
     }
 
     public float getWood()
