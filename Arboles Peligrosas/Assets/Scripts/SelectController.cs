@@ -100,4 +100,10 @@ public class SelectController : MonoBehaviour {
     public List<GameObject> getSelectedFrames() {
         return selectedFrames;
     }
+
+    public GameObject getSelctedFrame() {
+        if (selectedFrames.Count > 0)
+            return selectedFrames[selectedFrames.Count - 1];
+        return null;
+    }
 }

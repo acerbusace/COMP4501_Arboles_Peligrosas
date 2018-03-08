@@ -10,8 +10,19 @@ public class CameraController : MonoBehaviour
     private float maxDist = 35f;
     private float sensitivity = 10f;
 
+    private float zSnapOffset = -15;
+
+    public SelectController selectController;
+
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            GameObject unit = selectController.getSelctedFrame();
+            if (unit != null)
+                transform.position = new Vector3(unit.transform.position.x, transform.position.y, unit.transform.position.z + zSnapOffset);
+        }
+
+
         float x = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         float z = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 
