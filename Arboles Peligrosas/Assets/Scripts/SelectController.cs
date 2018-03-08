@@ -26,6 +26,9 @@ public class SelectController : MonoBehaviour {
         if (Input.GetKeyUp(KeyCode.LeftShift))
             shiftModifier = false;
 
+        // remove selected units which no longer exist
+        selectedFrames.RemoveAll(GameObject => GameObject == null);
+
         //left mouse button
         if (Input.GetMouseButtonDown(0)) {
             setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
