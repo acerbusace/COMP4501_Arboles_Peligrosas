@@ -23,9 +23,7 @@ GameObject:
   - component: {fileID: 135443390865553590}
   - component: {fileID: 23381828635711080}
   - component: {fileID: 114456154470403906}
-  - component: {fileID: 114203886453367712}
   - component: {fileID: 54195469610833412}
-  - component: {fileID: 114296276964535948}
   m_Layer: 0
   m_Name: Robot
   m_TagString: Selectable,Moveable,Gatherable
@@ -102,31 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114203886453367712
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1518280370191878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad120b764878fc84591e13c78100d63e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 4
---- !u!114 &114296276964535948
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1518280370191878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16dfe48486b1b0742a52e81edd86bb73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gatherSpeed: 0.5
-  gatherDistance: 5
 --- !u!114 &114456154470403906
 MonoBehaviour:
   m_ObjectHideFlags: 1

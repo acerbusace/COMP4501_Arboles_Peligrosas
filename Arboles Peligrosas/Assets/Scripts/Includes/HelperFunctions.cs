@@ -24,4 +24,13 @@ public class HelperFunctions {
 
         return false;
     }
+
+    public static void addToDict(Dictionary<string, string> dict, string key, string val)
+    {
+        string tmp;
+        if (dict.TryGetValue(key, out tmp))
+            dict[key] = val;
+        else
+            dict.Add(key, val);
+    }
 }

@@ -12,12 +12,18 @@ public class PlayerController : Actor
 
         unitName = "Player";
         unitHealth = 100f;
+        speed = 5f;
+        gatherSpeed = 1f;
+        gatherDistance = 5f;
 
         sfInfo.info = new Dictionary<string, string>();
-        sfInfo.info.Add("Unit", unitName);
-        sfInfo.info.Add("Health", ((int)unitHealth).ToString());
-        sfInfo.info.Add("Speed", ((int)GetComponent<Movement>().getSpeed()).ToString());
     }
 
+    public override void updateSFInfo()
+    {
+        HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
+        HelperFunctions.addToDict(sfInfo.info, "Health", ((int)unitHealth).ToString());
+        HelperFunctions.addToDict(sfInfo.info, "Speed", ((int)speed).ToString());
+    }
 }
 

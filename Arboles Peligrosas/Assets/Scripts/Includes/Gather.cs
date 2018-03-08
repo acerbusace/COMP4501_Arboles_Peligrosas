@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class Gather : MonoBehaviour, Action {
     
     private List<GameObject> resources;
@@ -15,6 +15,7 @@ public class Gather : MonoBehaviour, Action {
     public Gather()
     {
         resources = new List<GameObject>();
+        status = Status.PENDING;
     }
     // Use this for initialization
     public void start () {
@@ -27,6 +28,7 @@ public class Gather : MonoBehaviour, Action {
     {
         resources.Add(resource);
     }
+
 
     public void stop()
     {
@@ -84,4 +86,7 @@ public class Gather : MonoBehaviour, Action {
     {
         return status;
     }
+
+    public void setStatus(Status s) { status = s; }
 }
+*/
