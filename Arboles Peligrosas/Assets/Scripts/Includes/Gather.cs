@@ -48,14 +48,14 @@ public class Gather : MonoBehaviour, Action {
                 float amountGathered;
                 bool depleted = false;
 
-                if (resources[0].tag == "Tree")
+                if (HelperFunctions.containsTag("Tree", resources[0].tag))
                 {
                     Tree tree = resources[0].GetComponent<Tree>();
 
                     depleted = tree.gather(gatherSpeed * Time.deltaTime, out amountGathered);
                     rc.addWood(amountGathered);
                 }
-                else if (resources[0].tag == "Stone")
+                else if (HelperFunctions.containsTag("Stone", resources[0].tag))
                 {
                     Stone stone = resources[0].GetComponent<Stone>();
 
@@ -70,6 +70,7 @@ public class Gather : MonoBehaviour, Action {
             }
         } catch (Exception e)
         {
+            print(e.ToString());
             stop();
         }
 	}

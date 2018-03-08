@@ -5,6 +5,11 @@ using UnityEngine;
 public interface Selectable
 {
     UI_SelectedFrame getSFInfo();
+}
+
+// change name to something more appropriate
+public interface Moveable
+{
     void move(RaycastHit ray);
     void queueMove(RaycastHit ray);
     void gather(RaycastHit hit);
@@ -25,11 +30,14 @@ public interface Action
     Status getStatus();
 }
 
-public class Actor : MonoBehaviour, Selectable
+public class Actor : MonoBehaviour, Selectable, Moveable
 {
     protected Action currentAction;
     protected UI_SelectedFrame sfInfo;
     protected List<Action> actions;
+
+    protected string unitName;
+    protected float unitHealth;
 
     public Actor()
     {
@@ -99,11 +107,11 @@ public class Actor : MonoBehaviour, Selectable
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
 
-public class Resource: MonoBehaviour
+public class Resource: MonoBehaviour, Selectable
 {
     protected float gatherRate;
     protected float remaining; // amount of resource left
-
+    protected UI_SelectedFrame sfInfo;
     
     /*
      * gatherAmount: amount of resource to gather
@@ -132,6 +140,8 @@ public class Resource: MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public UI_SelectedFrame getSFInfo() { return sfInfo; }
 }
 
 public class Tree: Resource
@@ -140,6 +150,10 @@ public class Tree: Resource
     {
         remaining = 10f;
         gatherRate = 1f;
+
+        sfInfo.info = new Dictionary<string, string>();
+        sfInfo.info.Add("Unit", "Tree");
+        sfInfo.info.Add("Remaining", ((int)remaining).ToString());
     }
 }
 
@@ -149,6 +163,10 @@ public class Stone : Resource
     {
         remaining = 5f;
         gatherRate = 0.25f;
+
+        sfInfo.info = new Dictionary<string, string>();
+        sfInfo.info.Add("Unit", "Stone");
+        sfInfo.info.Add("Remaining", ((int)remaining).ToString());
     }
 }
 

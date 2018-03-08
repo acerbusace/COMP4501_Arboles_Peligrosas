@@ -7,6 +7,7 @@ public class UI_UnitController : MonoBehaviour {
 
     private List<GameObject> sfInfoPannels;
     public GameObject sfInfoPannelPrefab;
+    public GameObject sfInfoTextPrefab;
     public GameObject UI_Canvas;
 
     public SelectController selectController;
@@ -23,15 +24,20 @@ public class UI_UnitController : MonoBehaviour {
         setSelectableInfo();	
 	}
 
-    GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pos = new Vector3()) {
+    GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pannelPos = new Vector3()) {
         GameObject pannel = Instantiate(sfInfoPannelPrefab, UI_Canvas.transform, false);
-        pannel.transform.position = pos;
+        pannel.transform.position = pannelPos;
 
-        Text unitNameText = pannel.transform.Find("UnitNameText").GetComponent<Text>();
-        unitNameText.text = "Unit: " + sfInfo.name;
+        Vector3 textPos = new Vector3();
+        foreach (string key in sfInfo.info.Keys) {
+            GameObject name = Instantiate(sfInfoTextPrefab, pannel.transform, false);
+            name.GetComponent<Text>().text = key + ": " + sfInfo.info[key];
+            name.transform.position -= textPos;
+            textPos.y += name.GetComponent<Text>().preferredHeight;
+        }
 
-        Text unitHealthText = pannel.transform.Find("UnitHealthText").GetComponent<Text>();
-        unitHealthText.text = "Health: " + ((int)sfInfo.health).ToString();
+        RectTransform rt = pannel.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(150f, textPos.y + 10);
 
         return pannel;
     }

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 136377388145013258}
   m_Layer: 0
   m_Name: rock01
-  m_TagString: Stone
+  m_TagString: Selectable,Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

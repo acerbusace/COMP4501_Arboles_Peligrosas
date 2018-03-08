@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
         // Spacebar is Pressed
         // Then snap to the last selected unit
         if (Input.GetKeyDown(KeyCode.Space)) {
-            GameObject unit = selectController.getSelctedFrame();
+            GameObject unit = selectController.getLastSelctedFrame();
             if (unit != null) {
                 transform.position = new Vector3(unit.transform.position.x, transform.position.y, unit.transform.position.z + zSnapOffset);
                 velocity = new Vector3();

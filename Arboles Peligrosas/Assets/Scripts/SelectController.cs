@@ -7,30 +7,30 @@ public class SelectController : MonoBehaviour {
 
     private List<GameObject> selectedFrames;
     private UI_SelectedFrame sfInfo;
-    private List<string> sfTags;
+    private string sfTag;
     private List<string> resourseTags;
-    private bool selectMultiple;
+    // used for multi select and queueing actions
+    private bool shiftModifier;
 
     // Use this for initialization
     void Start () {
         selectedFrames = new List<GameObject>();
 
-        sfTags = new List<string>();
-        sfTags.Add("Selectable");
+        sfTag = "Selectable";
 
         resourseTags = new List<string>();
         resourseTags.Add("Tree");
         resourseTags.Add("Stone");
 
-        selectMultiple = false;
+        shiftModifier = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.LeftShift))
-            selectMultiple = true;
+            shiftModifier = true;
         if (Input.GetKeyUp(KeyCode.LeftShift))
-            selectMultiple = false;
+            shiftModifier = false;
 
         if (Input.GetMouseButtonDown(0)) {
             //left mouse button
@@ -41,37 +41,41 @@ public class SelectController : MonoBehaviour {
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                if (resourseTags.Contains(hit.transform.gameObject.tag))
+                if (HelperFunctions.containsTag(resourseTags, hit.transform.gameObject.tag))
                 {
-                    if (selectMultiple)
+                    if (shiftModifier)
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            sf.GetComponent<Selectable>().queueGather(hit);
+                            if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
+                                sf.GetComponent<Moveable>().queueGather(hit);
                         }
                     }
                     else
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            sf.GetComponent<Selectable>().gather(hit);
+                            if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
+                                sf.GetComponent<Moveable>().gather(hit);
                         }
                     }
                 }
                 else
                 {
-                    if (selectMultiple)
+                    if (shiftModifier)
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            sf.GetComponent<Selectable>().queueMove(hit);
+                            if (HelperFunctions.containsTag("Moveable", sf.gameObject.tag))
+                                sf.GetComponent<Moveable>().queueMove(hit);
                         }
                     }
                     else
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            sf.GetComponent<Selectable>().move(hit);
+                            if (HelperFunctions.containsTag("Moveable", sf.gameObject.tag))
+                                sf.GetComponent<Moveable>().move(hit);
                         }
                     }
                 }
@@ -86,10 +90,11 @@ public class SelectController : MonoBehaviour {
         {
             if (hit.transform.gameObject != null)
             {
-                if (sfTags.Contains(hit.transform.gameObject.tag))
+                if (HelperFunctions.containsTag(sfTag, hit.transform.gameObject.tag))
                 {
-                    if (!selectMultiple)
+                    if (!shiftModifier)
                         selectedFrames.Clear();
+                    // don't select the same object twice
                     if (!selectedFrames.Contains(hit.transform.gameObject))
                         selectedFrames.Add(hit.transform.gameObject);
                 }
@@ -101,7 +106,7 @@ public class SelectController : MonoBehaviour {
         return selectedFrames;
     }
 
-    public GameObject getSelctedFrame() {
+    public GameObject getLastSelctedFrame() {
         if (selectedFrames.Count > 0)
             return selectedFrames[selectedFrames.Count - 1];
         return null;

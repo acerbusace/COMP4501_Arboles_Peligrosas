@@ -66,13 +66,15 @@ public class Movement : MonoBehaviour, Action
 
         transform.position = lastPosition;
 
-        if (col.gameObject.tag != "Ground")
+        //if (col.gameObject.tag != "Ground")
+        if (!HelperFunctions.containsTag("Ground", col.gameObject.tag))
             stop();
     }
 
     public void clear() { destinations.Clear(); stop(); }
     public void addDestination(Vector3 dest) { destinations.Add(dest); }
     public void setSpeed(float s) { speed = s; }
+    public float getSpeed() { return speed; }
 }
 
 class Lerp
