@@ -82,4 +82,33 @@ public class ResourceController : MonoBehaviour {
     {
         stone -= amount;
     }
+
+    public bool bulidingRobot()
+    {
+        if (wood > 10f)
+        {
+            wood -= 10f;
+            return true;
+        }
+        return false;
+    }
+    public bool buildingWall()
+    {
+        if (stone > 5f)
+        {
+            stone -= 5f;
+            return true;
+        }
+        return false;
+    }
+    public bool buildingTurret()
+    {
+        if (wood > 10f && stone > 10f)
+        {
+            wood -= 10f;
+            stone -= 10f;
+            return true;
+        }
+        return false;
+    }
 }

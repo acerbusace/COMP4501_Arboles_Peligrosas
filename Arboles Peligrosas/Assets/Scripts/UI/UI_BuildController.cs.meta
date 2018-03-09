@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 084e71ee9a4062149a1ba7a24fd687ea
+timeCreated: 1520553204
+licenseType: Pro
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - buttonPrefab: {fileID: 1132847974664170, guid: 30764ba908794c346bed6d80fc412aa7,
+      type: 2}
+  - dummyPrefab: {fileID: 1206316726072532, guid: f2fa71fac179f124d946144e573296ee,
+      type: 2}
+  - robotPrefab: {fileID: 1620049300034840, guid: d933133b181f3a340a07780bd2a4dd12,
+      type: 2}
+  - wallPrefab: {fileID: 1227459181013028, guid: 4d1a2c1105f7864439316ab8493c3037,
+      type: 2}
+  - turretPrefab: {fileID: 1486963558634558, guid: d6795c1fd0920e94a89b8b14654f9b34,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

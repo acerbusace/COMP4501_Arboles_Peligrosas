@@ -48,7 +48,7 @@ public abstract class Actor : MonoBehaviour, Selectable
     }
     public void queueMove(RaycastHit hit)
     {
-        queueMove(hitToVector(hit));
+        queueMove(HelperFunctions.hitToVector(hit));
     }
 
     public void move(RaycastHit hit)
@@ -59,7 +59,7 @@ public abstract class Actor : MonoBehaviour, Selectable
 
     public void queueGather(RaycastHit hit)
     {
-        Vector3 destination = hitToVector(hit);
+        Vector3 destination = HelperFunctions.hitToVector(hit);
         Vector3 direction = destination - transform.position;
         direction = Vector3.Normalize(direction);
         destination -= direction * 2.5f;
@@ -77,14 +77,6 @@ public abstract class Actor : MonoBehaviour, Selectable
     public void clear()
     {
         actions.Clear();
-    }
-
-    public Vector3 hitToVector(RaycastHit hit)
-    {
-        Vector3 destination = new Vector3();
-        destination = hit.point;
-        destination.y = GetComponent<Collider>().bounds.size.y/2; //terrain.y @ destination.x & destination.z + playerSize.y/2
-        return destination;
     }
 
     void OnCollisionEnter(Collision col)
@@ -165,11 +157,6 @@ public class Stone : Resource
     }
 }
 
-
-
-
-
-
 public abstract class Action
 {
 
@@ -178,113 +165,23 @@ public abstract class Action
     public abstract void start();
 }
 
-public class Movement : Action
+public class Build : Action
 {
-
-    Vector3 destination;
-    Lerp move;
-    GameObject gameObject;
-    float speed;
-
-    public Movement(GameObject gb, Vector3 dest, float s)
+    public override bool isFinished()
     {
-        gameObject = gb;
-        destination = dest;
-        speed = s;
+        return false;
     }
 
     public override void start()
     {
-        move = new Lerp(gameObject.transform.position, destination, speed);
+        
     }
 
     public override void update()
     {
-        if (move == null) start();
-
-        gameObject.transform.position = move.getPosition();
-    }
-
-    public override bool isFinished()
-    {
-        if (gameObject.transform.position == destination) return true;
-        return false;
+        
     }
 }
-
-public class Gather : Action
-{
-    private GameObject resource;
-    private GameObject gatheringUnit;
-    private float gatherSpeed;
-    private float gatherDistance;
-
-    private bool finished;
-    private bool startCalled;
-
-    public Gather(GameObject r, GameObject gU, float gS, float gD)
-    {
-        resource = r;
-        gatheringUnit = gU;
-        gatherSpeed = gS;
-        gatherDistance = gD;
-        finished = false;
-        startCalled = false;
-    }
-
-    public override void start()   {
-        // add loading bar???
-    }
-
-    public override void update()
-    {
-        if (!startCalled)
-        {
-            start();
-            startCalled = true;
-        }
-        if (finished) return;
-
-        try
-        {
-            if (Vector3.Distance(resource.transform.position, gatheringUnit.transform.position) > gatherDistance) finished = true;
-
-            ResourceController rc = GameObject.Find("__CONTROL_SCRIPTS__").GetComponent<ResourceController>();
-            float amountGathered;
-            bool depleted = false;
-
-            if (HelperFunctions.containsTag("Tree", resource.tag))
-            {
-                Tree tree = resource.GetComponent<Tree>();
-
-                depleted = tree.gather(gatherSpeed * Time.deltaTime, out amountGathered);
-                rc.addWood(amountGathered);
-            }
-            else if (HelperFunctions.containsTag("Stone", resource.tag))
-            {
-                Stone stone = resource.GetComponent<Stone>();
-
-                depleted = stone.gather(gatherSpeed * Time.deltaTime, out amountGathered);
-                rc.addStone(amountGathered);
-            }
-
-            if (depleted)
-            {
-                finished = true;
-            }
-        }
-        catch (Exception e)
-        {
-            finished = true;
-        }
-    }
-
-    public override bool isFinished()
-    {
-        return finished;
-    }
-}
-
 
 class Lerp
 {
