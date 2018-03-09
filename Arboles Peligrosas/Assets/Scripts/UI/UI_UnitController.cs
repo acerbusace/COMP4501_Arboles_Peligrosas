@@ -8,7 +8,8 @@ public class UI_UnitController : MonoBehaviour {
     private List<GameObject> sfInfoPannels;
     public GameObject sfInfoPannelPrefab;
     public GameObject sfInfoTextPrefab;
-    public GameObject UI_Canvas;
+    private GameObject canvas;
+    public GameObject canvasPrefab;
 
     public SelectController selectController;
     private List<GameObject> selectedFrames;
@@ -16,6 +17,7 @@ public class UI_UnitController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         sfInfoPannels = new List<GameObject>();
+        canvas = Instantiate(canvasPrefab);
 	}
 	
 	// Update is called once per frame
@@ -25,7 +27,7 @@ public class UI_UnitController : MonoBehaviour {
 	}
 
     GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pannelPos = new Vector3()) {
-        GameObject pannel = Instantiate(sfInfoPannelPrefab, UI_Canvas.transform, false);
+        GameObject pannel = Instantiate(sfInfoPannelPrefab, canvas.transform, false);
         pannel.transform.position = pannelPos;
 
         Vector3 textPos = new Vector3();
