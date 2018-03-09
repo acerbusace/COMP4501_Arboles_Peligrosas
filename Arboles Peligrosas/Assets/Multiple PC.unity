@@ -306,7 +306,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4045655353632456, guid: 339cba540d4a02f418769102f658d90e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.1640685e-16
+      value: 0.13
       objectReference: {fileID: 0}
     - target: {fileID: 4045655353632456, guid: 339cba540d4a02f418769102f658d90e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -335,6 +335,26 @@ Prefab:
     - target: {fileID: 1302276149223244, guid: 339cba540d4a02f418769102f658d90e, type: 2}
       propertyPath: m_TagString
       value: Selectable,Moveable,Gatherer,Builder
+      objectReference: {fileID: 0}
+    - target: {fileID: 54138784538450078, guid: 339cba540d4a02f418769102f658d90e,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 54138784538450078, guid: 339cba540d4a02f418769102f658d90e,
+        type: 2}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54138784538450078, guid: 339cba540d4a02f418769102f658d90e,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 54138784538450078, guid: 339cba540d4a02f418769102f658d90e,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 339cba540d4a02f418769102f658d90e, type: 2}
@@ -378,6 +398,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 154471011859887846, guid: ffbfea4d2efbd154ea6caaf93cc17e63,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 0503a7897d58f4c4bab1157dd61d1bf3,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffbfea4d2efbd154ea6caaf93cc17e63, type: 2}
   m_IsPrefabParent: 0
