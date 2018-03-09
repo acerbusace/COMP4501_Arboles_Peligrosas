@@ -49,6 +49,7 @@ public class UI_BuildController : MonoBehaviour {
             if (Physics.Raycast(ray, out hit))
                 v = transform.position = HelperFunctions.hitToVector(hit);
             v.y += 2; // cause cool
+            
             Instantiate(currentBuildable, v, Quaternion.identity);
             currentBuildable = null;
             Destroy(dummyObject);
