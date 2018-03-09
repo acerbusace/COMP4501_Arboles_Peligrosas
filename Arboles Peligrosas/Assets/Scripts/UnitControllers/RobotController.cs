@@ -7,9 +7,6 @@ public class RobotController : Actor
 
 	void Start ()
     {
-        sfInfo.name = "Robot";
-        sfInfo.health = 100f;
-
         unitName = "Robot";
         unitHealth = 100f;
         speed = 5f;

@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c75763991a8d5d649bd3fe51efc72509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 0
+  acceleration: 25
   deceleration: 10
   selectController: {fileID: 1303643158}
 --- !u!1001 &357380646
@@ -639,6 +639,10 @@ Prefab:
     - target: {fileID: 4045655353632456, guid: 339cba540d4a02f418769102f658d90e, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1302276149223244, guid: 339cba540d4a02f418769102f658d90e, type: 2}
+      propertyPath: m_TagString
+      value: Selectable,Moveable,Gatherer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 339cba540d4a02f418769102f658d90e, type: 2}
