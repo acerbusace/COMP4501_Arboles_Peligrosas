@@ -386,9 +386,10 @@ GameObject:
   - component: {fileID: 95835254950095202}
   - component: {fileID: 136021137741896648}
   - component: {fileID: 54138784538450078}
+  - component: {fileID: 114509715139603302}
   m_Layer: 0
-  m_Name: PlayerDude (1)
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Selectable,Moveable,Gatherable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2228,6 +2229,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114509715139603302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1302276149223244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f956d7a4b87d0dd41af03d42b76a184c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136021137741896648
 CapsuleCollider:
   m_ObjectHideFlags: 1

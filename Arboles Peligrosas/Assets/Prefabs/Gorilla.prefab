@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 136690593465942774}
   - component: {fileID: 54386189084258414}
   m_Layer: 0
-  m_Name: Gorilla 1 1
+  m_Name: Gorilla
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
