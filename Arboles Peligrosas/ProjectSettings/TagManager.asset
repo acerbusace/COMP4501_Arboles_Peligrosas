@@ -8,11 +8,10 @@ TagManager:
   - Ground
   - Tree
   - Stone
-  - Selectable,Player
-  - Selectable,Robot
   - Selectable,Tree
   - Selectable,Stone
-  - Selectable,Moveable,Gatherable
+  - Selectable,Moveable,Gatherer,Builder
+  - Selectable,Moveable,Gatherer
   layers:
   - Default
   - TransparentFX

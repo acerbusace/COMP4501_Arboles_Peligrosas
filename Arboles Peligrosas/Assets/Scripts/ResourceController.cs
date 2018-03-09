@@ -19,8 +19,8 @@ public class ResourceController : MonoBehaviour {
         stone = 69;
 
         resources = new List<GameObject>();
-        CreateTreeResource(20);
-        CreateStoneResource(15);
+        CreateTreeResource(40);
+        CreateStoneResource(25);
     }
 
     void CreateTreeResource(int amount)
@@ -29,7 +29,7 @@ public class ResourceController : MonoBehaviour {
         {
             GameObject tree = Instantiate(
                 treePrefab, 
-                new Vector3(Random.Range(-100f, 100f), 0f, Random.Range(-100f, 100f)), 
+                new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
                 Quaternion.identity
             );
             tree.AddComponent<Tree>();
@@ -44,7 +44,7 @@ public class ResourceController : MonoBehaviour {
         {
             GameObject stone = Instantiate(
                 stonePrefab,
-                new Vector3(Random.Range(-100f, 100f), 0f, Random.Range(-100f, 100f)),
+                new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
                 Quaternion.identity
             );
             stone.AddComponent<Stone>();

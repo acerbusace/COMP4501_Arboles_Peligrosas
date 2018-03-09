@@ -4,9 +4,6 @@ using UnityEngine;
 
 public struct UI_SelectedFrame
 {
-    public string name;
-    public float health;
-
     public Dictionary<string, string> info;
 }
 

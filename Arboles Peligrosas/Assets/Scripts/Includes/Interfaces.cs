@@ -79,8 +79,7 @@ public abstract class Actor : MonoBehaviour, Selectable
         actions.Clear();
     }
 
-    void OnCollisionEnter(Collision col)
-    {
+    void OnCollisionEnter(Collision col) {
         if (!HelperFunctions.containsTag("Ground", col.gameObject.tag))
             clear();
     }

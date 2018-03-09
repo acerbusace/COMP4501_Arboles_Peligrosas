@@ -7,9 +7,6 @@ public class PlayerController : Actor
 
     void Start()
     {
-        sfInfo.name = "Player";
-        sfInfo.health = 100f;
-
         unitName = "Player";
         unitHealth = 100f;
         speed = 5f;

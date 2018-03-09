@@ -38,7 +38,7 @@ public class ActionController : MonoBehaviour {
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
+                            if (HelperFunctions.containsTag("Gatherer", sf.gameObject.tag))
                                 sf.GetComponent<Actor>().queueGather(hit);
                         }
                     }
@@ -46,7 +46,7 @@ public class ActionController : MonoBehaviour {
                     {
                         foreach (GameObject sf in selectedFrames)
                         {
-                            if (HelperFunctions.containsTag("Gatherable", sf.gameObject.tag))
+                            if (HelperFunctions.containsTag("Gatherer", sf.gameObject.tag))
                                 sf.GetComponent<Actor>().gather(hit);
                         }
                     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SelectController : MonoBehaviour {
@@ -31,7 +32,8 @@ public class SelectController : MonoBehaviour {
 
         //left mouse button
         if (Input.GetMouseButtonDown(0)) {
-            setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
+            if (!IsPointerOverUIObject())
+                setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
         }
     }
 
@@ -40,16 +42,15 @@ public class SelectController : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.gameObject != null)
+            if (HelperFunctions.containsTag(sfTag, hit.transform.gameObject.tag))
             {
-                if (HelperFunctions.containsTag(sfTag, hit.transform.gameObject.tag))
-                {
-                    if (!shiftModifier)
-                        selectedFrames.Clear();
-                    // don't select the same object twice
-                    if (!selectedFrames.Contains(hit.transform.gameObject))
-                        selectedFrames.Add(hit.transform.gameObject);
-                }
+                if (!shiftModifier)
+                    selectedFrames.Clear();
+                // don't select the same object twice
+                if (!selectedFrames.Contains(hit.transform.gameObject))
+                    selectedFrames.Add(hit.transform.gameObject);
+            } else {
+                selectedFrames.Clear();
             }
         }
     }
@@ -62,5 +63,13 @@ public class SelectController : MonoBehaviour {
         if (selectedFrames.Count > 0)
             return selectedFrames[selectedFrames.Count - 1];
         return null;
+    }
+
+    private bool IsPointerOverUIObject() {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

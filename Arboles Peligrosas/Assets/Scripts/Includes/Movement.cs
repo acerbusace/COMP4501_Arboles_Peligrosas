@@ -7,32 +7,38 @@ public class Movement : Action
 {
 
     Vector3 destination;
-    Lerp move;
-    GameObject gameObject;
+    Rigidbody rigidbody;
     float speed;
+
+    bool finished;
 
     public Movement(GameObject gb, Vector3 dest, float s)
     {
-        gameObject = gb;
+        rigidbody = gb.GetComponent<Rigidbody>();
         destination = dest;
         speed = s;
+
+        finished = false;
     }
 
     public override void start()
     {
-        move = new Lerp(gameObject.transform.position, destination, speed);
+        Vector3 dir = destination - rigidbody.position;
+        rigidbody.velocity = dir.normalized * speed;
     }
 
     public override void update()
     {
-        if (move == null) start();
+        if (!finished) start();
 
-        gameObject.transform.position = move.getPosition();
+        if (Vector3.Distance(rigidbody.position, destination) < 0.25f) {
+            rigidbody.velocity = Vector3.zero;
+            finished = true;
+        }
     }
 
     public override bool isFinished()
     {
-        if (gameObject.transform.position == destination) return true;
-        return false;
+        return finished;
     }
 }
