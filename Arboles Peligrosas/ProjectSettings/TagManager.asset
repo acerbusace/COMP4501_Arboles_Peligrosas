@@ -12,6 +12,7 @@ TagManager:
   - Selectable,Stone
   - Selectable,Moveable,Gatherer,Builder
   - Selectable,Moveable,Gatherer
+  - Enemy
   layers:
   - Default
   - TransparentFX

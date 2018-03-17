@@ -413,6 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f901fc1131b958e46a8efdd853c1bbb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 1407194502649920, guid: c1eefe8ba90d2d64c80244cb62d8667c,
+    type: 2}
 --- !u!114 &114056913961117996
 MonoBehaviour:
   m_ObjectHideFlags: 1
