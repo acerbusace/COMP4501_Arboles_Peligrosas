@@ -9,7 +9,7 @@ public class PlayerController : Actor
     {
         unitName = "Player";
         unitHealth = 100f;
-        speed = 5f;
+        speed = 30f;
         gatherSpeed = 1f;
         gatherDistance = 5f;
 

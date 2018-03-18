@@ -42,7 +42,7 @@ public abstract class Actor : MonoBehaviour, Selectable
             if (actions[0].isFinished()) actions.RemoveAt(0);
         }
     }
-    public void queueMove(Vector3 destination)
+    public virtual void queueMove(Vector3 destination)
     {
         actions.Add(new Movement(gameObject, destination, speed));
     }
@@ -86,6 +86,24 @@ public abstract class Actor : MonoBehaviour, Selectable
 
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
     public virtual void updateSFInfo() {  }
+}
+
+public class Friendly : Actor
+{
+}
+
+public class Enemy : Actor
+{
+}
+
+public class Flocker : Enemy
+{
+
+    public override void queueMove(Vector3 destination)
+    {
+        actions.Add(new Movement(gameObject, destination, 30f, f: true));
+    }
+
 }
 
 public class Resource: MonoBehaviour, Selectable

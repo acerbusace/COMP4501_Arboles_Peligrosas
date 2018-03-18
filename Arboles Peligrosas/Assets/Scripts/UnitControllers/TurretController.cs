@@ -51,7 +51,6 @@ public class TurretController : MonoBehaviour, Selectable {
             if (currFireRate < 0)
             {
                 shoot();
-
                 currFireRate = fireRate;
             }
         }
@@ -64,7 +63,7 @@ public class TurretController : MonoBehaviour, Selectable {
         Vector3 pos = head.position + head.forward * bulletSpawnOffsetZ + new Vector3(0, bulletSpawnOffsetY, 0);
         //Vector3 targetDir = currTarget.transform.position - head.position;
         Instantiate(bulletPrefab, pos, Quaternion.identity).transform.LookAt(currTarget.transform);
-        //Instantiate(bulletPrefab, pos, head.rotation);
+        //Instantiate(bulletPrefab, pos, Quaternion.Euler(targetDir.x, targetDir.y, targetDir.z));
     }
 
     GameObject getClosestTarget()
