@@ -216,7 +216,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.6669922
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -224,7 +224,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -12.014008
+      value: -9.92
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -250,6 +250,10 @@ Prefab:
       propertyPath: m_Name
       value: Tiger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
   m_IsPrefabParent: 0
@@ -262,11 +266,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2.5279915
+      value: -4.87
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.0167975e-16
+      value: 0.09
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -333,6 +337,10 @@ Prefab:
     - target: {fileID: 4689438167663856, guid: 8e84873dc19c6a24ca6ca9e4ee85f6bd, type: 2}
       propertyPath: m_RootOrder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346842493658886, guid: 8e84873dc19c6a24ca6ca9e4ee85f6bd, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e84873dc19c6a24ca6ca9e4ee85f6bd, type: 2}
@@ -420,7 +428,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -13.6462555
+      value: -15.45
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -445,6 +453,10 @@ Prefab:
     - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_Name
       value: Tiger (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
@@ -534,15 +546,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4.585205
+      value: 1.69
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.67
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -14.318878
+      value: -0.68
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -567,6 +579,10 @@ Prefab:
     - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_Name
       value: Tiger (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
@@ -626,15 +642,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 8.471558
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.406815
+      value: -22.07
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -659,6 +675,14 @@ Prefab:
     - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_Name
       value: Tiger (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_TagString
+      value: Selectable,Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
@@ -802,11 +826,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.24784851
+      value: -2.15
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.48
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -836,6 +860,10 @@ Prefab:
       propertyPath: m_Name
       value: Tiger (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
   m_IsPrefabParent: 0
@@ -848,7 +876,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.7934723
+      value: 7.51
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
@@ -881,6 +909,10 @@ Prefab:
     - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_Name
       value: Tiger (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}

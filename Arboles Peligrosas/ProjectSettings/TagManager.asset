@@ -13,7 +13,8 @@ TagManager:
   - Selectable,Moveable,Gatherer,Builder
   - Selectable,Moveable,Gatherer
   - Enemy
-  - Selectable, Enemy
+  - Selectable,Enemy
+  - Selectable,Enemy,Flocker
   layers:
   - Default
   - TransparentFX

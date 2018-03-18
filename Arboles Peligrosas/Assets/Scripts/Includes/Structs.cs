@@ -7,8 +7,11 @@ public struct UI_SelectedFrame
     public Dictionary<string, string> info;
 }
 
-
-
+public enum EnemyState
+{
+    Seeking,
+    Wandering
+};
 
 
 

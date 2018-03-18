@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : Action
 {
 
-    static float neighbourhoodRadius = 30f;
+    static float neighbourhoodRadius = 300f;
     Vector3 destination;
     Rigidbody rigidbody;
     float speed;
@@ -20,7 +20,7 @@ public class Movement : Action
     bool first;
     bool finished;
 
-    public Movement(GameObject gb, Vector3 dest, float s, float mS = 10f, bool f=false)
+    public Movement(GameObject gb, Vector3 dest, float s, float mS = 10f, bool f = false)
     {
         rigidbody = gb.GetComponent<Rigidbody>();
         destination = dest;
@@ -43,17 +43,19 @@ public class Movement : Action
             first = false;
         }
 
-        if (rigidbody.velocity.magnitude < maxVelocity) {
-            rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
-        }
-        
+       
+
+        rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
+
         if (flock)
         {
-            Debug.Log(getFlockVector(rigidbody));
-            Debug.Log(rigidbody.velocity);
             rigidbody.velocity += getFlockVector(rigidbody) * speed * Time.deltaTime;
         }
-        
+
+        if (rigidbody.velocity.magnitude > maxVelocity)
+        {
+            rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
+        }
 
     }
 
@@ -82,7 +84,7 @@ public class Movement : Action
         Vector3 seperation = new Vector3();
         foreach (Collider c in hitColliders)
         {
-            if (HelperFunctions.containsTag("Enemy", c.gameObject.tag))
+            if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
             {
                 counter++;
 
@@ -90,7 +92,7 @@ public class Movement : Action
 
                 alignment += t.velocity;
                 cohesion += t.position;
-                seperation += (rigidBody.position - t.position);
+                seperation += (t.position - rigidBody.position);
             }
         }
 
@@ -100,11 +102,12 @@ public class Movement : Action
         cohesion /= counter;
         cohesion = cohesion - rigidBody.position;
         cohesion = cohesion.normalized;
+        //cohesion /= 2;
 
         seperation /= counter;
-        seperation *= -1;
+        seperation = -seperation;
         seperation = seperation.normalized;
 
-        return (alignment + cohesion + seperation).normalized;
+        return (alignment + cohesion*1.2f + seperation).normalized;
     }
 }

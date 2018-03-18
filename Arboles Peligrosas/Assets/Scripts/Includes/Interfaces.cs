@@ -35,13 +35,26 @@ public abstract class Actor : MonoBehaviour, Selectable
 
     void Update()
     {
+        update();
+    }
+
+    public virtual void update()
+    {
         updateSFInfo();
+        updateQueue();
+
+        transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity);
+    }
+
+    public void updateQueue()
+    {
         if (actions.Count > 0)
         {
             actions[0].update();
             if (actions[0].isFinished()) actions.RemoveAt(0);
         }
     }
+
     public virtual void queueMove(Vector3 destination)
     {
         actions.Add(new Movement(gameObject, destination, speed));
@@ -80,6 +93,11 @@ public abstract class Actor : MonoBehaviour, Selectable
     }
 
     void OnCollisionEnter(Collision col) {
+        handleCollision(col);
+    }
+
+    public virtual void handleCollision(Collision col)
+    {
         if (!HelperFunctions.containsTag("Ground", col.gameObject.tag))
             clear();
     }
@@ -94,6 +112,51 @@ public class Friendly : Actor
 
 public class Enemy : Actor
 {
+    protected float seekRange;
+    protected float wanderRange;
+    protected EnemyState state;
+
+    void Update()
+    {
+        update();
+
+        if (actions.Count == 0)
+        {
+            Debug.Log("deciding move");
+            decideNextMove();
+        }
+    }
+
+    public void decideNextMove()
+    {
+        if (UnityEngine.Random.Range(0, 2) == 0)
+        {
+            state = EnemyState.Seeking;
+            seek();
+        }
+        else
+        {
+            state = EnemyState.Wandering;
+            wander();
+        }
+    }
+
+    public void seek()
+    {
+        Vector3 target = new Vector3(UnityEngine.Random.Range(-seekRange, seekRange), 0f, UnityEngine.Random.Range(-seekRange, seekRange));
+        queueMove(transform.position + target);
+    }
+
+    public void wander()
+    {
+        for (int i = 0; i < UnityEngine.Random.Range(2, 10); ++i)
+        //for (int i = 0; i < 3; ++i)
+        {
+            Debug.Log("it should do this 3 times");
+            Vector3 target = new Vector3(UnityEngine.Random.Range(-wanderRange, wanderRange), 0f, UnityEngine.Random.Range(-wanderRange, wanderRange));
+            queueMove(transform.position + target);
+        }
+    }
 }
 
 public class Flocker : Enemy
@@ -101,7 +164,11 @@ public class Flocker : Enemy
 
     public override void queueMove(Vector3 destination)
     {
-        actions.Add(new Movement(gameObject, destination, 30f, f: true));
+        actions.Add(new Movement(gameObject, destination, speed, f: true));
+    }
+
+    public override void handleCollision(Collision col)
+    {
     }
 
 }

@@ -10,14 +10,23 @@ public class WolfController : Flocker {
         unitHealth = 100f;
         speed = 30f;
 
+        seekRange = 50f;
+        wanderRange = 15f;
+
         sfInfo.info = new Dictionary<string, string>();
 
-        queueMove(new Vector3(1000, 0, 1000));
+        //queueMove(new Vector3(1000, 0, 1000));
     }
 
     public override void updateSFInfo()
     {
         HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
         HelperFunctions.addToDict(sfInfo.info, "Health", ((int)unitHealth).ToString());
+        if (state == EnemyState.Seeking)
+            HelperFunctions.addToDict(sfInfo.info, "State", "Seeking");
+        else if (state == EnemyState.Wandering)
+            HelperFunctions.addToDict(sfInfo.info, "State", "Wandering");
+        else
+            HelperFunctions.addToDict(sfInfo.info, "State", "");
     }
 }
