@@ -25,8 +25,10 @@ public abstract class Actor : MonoBehaviour, Selectable
     protected string unitName;
     protected float unitHealth;
     protected float speed;
+    protected float maxVelocity;
     protected float gatherSpeed;
     protected float gatherDistance;
+    protected float rotationSpeed;
 
     public Actor()
     {
@@ -38,12 +40,24 @@ public abstract class Actor : MonoBehaviour, Selectable
         update();
     }
 
+    public bool takeDamage(float damage)
+    {
+        unitHealth -= damage;
+        if (unitHealth < 0)
+        {
+            unitHealth = 0;
+            return true;
+        }
+        return false;
+    }
+
     public virtual void update()
     {
         updateSFInfo();
         updateQueue();
 
-        transform.rotation = Quaternion.LookRotation(GetComponent<Rigidbody>().velocity);
+        if (unitHealth <= 0)
+            Destroy(gameObject);
     }
 
     public void updateQueue()
@@ -57,7 +71,7 @@ public abstract class Actor : MonoBehaviour, Selectable
 
     public virtual void queueMove(Vector3 destination)
     {
-        actions.Add(new Movement(gameObject, destination, speed));
+        actions.Add(new Movement(gameObject, destination, speed, maxVelocity, rotationSpeed));
     }
     public void queueMove(RaycastHit hit)
     {
@@ -164,7 +178,7 @@ public class Flocker : Enemy
 
     public override void queueMove(Vector3 destination)
     {
-        actions.Add(new Movement(gameObject, destination, speed, f: true));
+        actions.Add(new Movement(gameObject, destination, speed, maxVelocity, rotationSpeed, true));
     }
 
     public override void handleCollision(Collision col)

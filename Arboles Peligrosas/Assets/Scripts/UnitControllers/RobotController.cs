@@ -9,9 +9,11 @@ public class RobotController : Actor
     {
         unitName = "Robot";
         unitHealth = 100f;
-        speed = 5f;
+        speed = 20f;
         gatherSpeed = 0.5f;
         gatherDistance = 5f;
+        rotationSpeed = 4f;
+        maxVelocity = 7.5f;
 
         sfInfo.info = new Dictionary<string, string>();
 	}

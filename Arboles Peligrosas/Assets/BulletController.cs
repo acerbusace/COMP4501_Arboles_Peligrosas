@@ -35,7 +35,7 @@ public class BulletController : MonoBehaviour {
     {
         if (HelperFunctions.containsTag("Enemy", collision.gameObject.tag))
         {
-            //collision.gameObject.GetComponent<Something>().takeDamage(damage);
+            collision.gameObject.GetComponent<Actor>().takeDamage(damage);
         }
 
         Destroy(gameObject);

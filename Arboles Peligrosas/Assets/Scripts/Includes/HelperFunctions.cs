@@ -50,4 +50,26 @@ public class HelperFunctions {
             destination.y = 0f;
         return destination;
     }
+
+    public static bool rotateTowardsVelocity(GameObject gb, float rotationSpeed = 2f, Vector3 direction = new Vector3())
+    {
+        bool returnValue = false;
+
+        if (direction == Vector3.zero)
+        {
+            Rigidbody rb = gb.GetComponent<Rigidbody>();
+            direction = rb.velocity;
+        }
+
+        float step = rotationSpeed * Time.deltaTime;
+        direction.y = gb.transform.forward.y;
+        Vector3 newDir = Vector3.RotateTowards(gb.transform.forward, direction, step, 0f);
+
+        if (Vector3.Distance(gb.transform.forward, direction.normalized) < step * 2)
+            returnValue = true;
+
+        gb.transform.rotation = Quaternion.LookRotation(newDir);
+
+        return returnValue;
+    }
 }

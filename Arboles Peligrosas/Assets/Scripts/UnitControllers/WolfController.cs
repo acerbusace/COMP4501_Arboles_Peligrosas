@@ -12,6 +12,8 @@ public class WolfController : Flocker {
 
         seekRange = 50f;
         wanderRange = 15f;
+        rotationSpeed = 4f;
+        maxVelocity = 9f;
 
         sfInfo.info = new Dictionary<string, string>();
 

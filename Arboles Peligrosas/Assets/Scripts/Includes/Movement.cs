@@ -12,6 +12,7 @@ public class Movement : Action
     float speed;
     float maxVelocity;
     bool flock;
+    float rotationSpeed;
 
     //Flock flock;
     //Seek seek;
@@ -20,13 +21,14 @@ public class Movement : Action
     bool first;
     bool finished;
 
-    public Movement(GameObject gb, Vector3 dest, float s, float mS = 10f, bool f = false)
+    public Movement(GameObject gb, Vector3 dest, float s, float mS, float rS, bool f = false)
     {
         rigidbody = gb.GetComponent<Rigidbody>();
         destination = dest;
         speed = s;
         maxVelocity = mS;
         flock = f;
+        rotationSpeed = rS;
 
         first = true;
         finished = false;
@@ -43,20 +45,20 @@ public class Movement : Action
             first = false;
         }
 
-       
-
-        rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
-
-        if (flock)
+        if (HelperFunctions.rotateTowardsVelocity(rigidbody.gameObject, rotationSpeed, dir))
         {
-            rigidbody.velocity += getFlockVector(rigidbody) * speed * Time.deltaTime;
-        }
+            rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
 
-        if (rigidbody.velocity.magnitude > maxVelocity)
-        {
-            rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
-        }
+            if (flock)
+            {
+                rigidbody.velocity += getFlockVector(rigidbody) * speed * Time.deltaTime;
+            }
 
+            if (rigidbody.velocity.magnitude > maxVelocity)
+            {
+                rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
+            }
+        }
     }
 
     public override void update()

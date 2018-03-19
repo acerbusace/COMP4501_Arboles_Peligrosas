@@ -61,9 +61,7 @@ public class TurretController : MonoBehaviour, Selectable {
     void shoot()
     {
         Vector3 pos = head.position + head.forward * bulletSpawnOffsetZ + new Vector3(0, bulletSpawnOffsetY, 0);
-        //Vector3 targetDir = currTarget.transform.position - head.position;
-        Instantiate(bulletPrefab, pos, Quaternion.identity).transform.LookAt(currTarget.transform);
-        //Instantiate(bulletPrefab, pos, Quaternion.Euler(targetDir.x, targetDir.y, targetDir.z));
+        Instantiate(bulletPrefab, pos, Quaternion.identity).transform.LookAt(currTarget.GetComponent<Collider>().bounds.center);
     }
 
     GameObject getClosestTarget()
@@ -99,6 +97,7 @@ public class TurretController : MonoBehaviour, Selectable {
             float step = rotationSpeed * Time.deltaTime;
             Vector3 newDir = Vector3.RotateTowards(head.forward, targetDir, step, 0f);
 
+            targetDir.y = head.forward.y;
             print("turning distance: " + Vector3.Distance(head.forward, targetDir.normalized));
             if (Vector3.Distance(head.forward, targetDir.normalized) < step * 2)
                 returnValue = true;

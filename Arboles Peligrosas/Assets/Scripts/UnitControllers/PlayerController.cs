@@ -12,6 +12,8 @@ public class PlayerController : Actor
         speed = 30f;
         gatherSpeed = 1f;
         gatherDistance = 5f;
+        rotationSpeed = 4f;
+        maxVelocity = 10f;
 
         sfInfo.info = new Dictionary<string, string>();
     }

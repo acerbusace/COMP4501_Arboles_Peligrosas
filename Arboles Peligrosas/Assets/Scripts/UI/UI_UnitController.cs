@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class UI_UnitController : MonoBehaviour {
 
     private List<GameObject> sfInfoPannels;
+    private List<GameObject> sfCircles;
     public GameObject sfInfoPannelPrefab;
     public GameObject sfInfoTextPrefab;
     private GameObject canvas;
     public GameObject canvasPrefab;
+    public GameObject sfCirclePrefab;
 
     public SelectController selectController;
     private List<GameObject> selectedFrames;
@@ -17,13 +19,17 @@ public class UI_UnitController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         sfInfoPannels = new List<GameObject>();
+        sfCircles = new List<GameObject>();
         canvas = Instantiate(canvasPrefab);
 	}
 	
 	// Update is called once per frame
 	void Update () {
         clearSelectableInfo();
-        setSelectableInfo();	
+        setSelectableInfo();
+
+        clearSelectableCircle();
+        setSelectableCircle();
 	}
 
     GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pannelPos = new Vector3()) {
@@ -50,6 +56,27 @@ public class UI_UnitController : MonoBehaviour {
         }
 
         sfInfoPannels.Clear();
+    }
+
+    void setSelectableCircle()
+    {
+        foreach (GameObject sf in selectedFrames)
+        {
+            GameObject circle = Instantiate(sfCirclePrefab, sf.transform.position, Quaternion.identity);
+            float x = sf.GetComponent<Collider>().bounds.size.x;
+            float z = sf.GetComponent<Collider>().bounds.size.z;
+            circle.transform.localScale = new Vector3(x + 0.5f, circle.transform.localScale.y, z + 0.5f);
+            print(sf.transform.position + " :/ " + circle.transform.position);
+            sfCircles.Add(circle);
+        }
+    }
+
+    void clearSelectableCircle()
+    {
+        foreach (GameObject sfCircle in sfCircles)
+        {
+            Destroy(sfCircle);
+        }
     }
 
     void setSelectableInfo()
