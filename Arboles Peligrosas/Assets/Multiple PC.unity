@@ -207,6 +207,48 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 10
   selectController: {fileID: 1303643158}
+--- !u!1001 &298815139
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333824467241018, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c29eaa876a7b4144a8a75a24bf782180, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &316615997
 Prefab:
   m_ObjectHideFlags: 0
@@ -270,7 +312,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4928869006296036, guid: 1dc29404d1cc3294bb3a9e06118eb0b4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1091,6 +1133,8 @@ MonoBehaviour:
   sfInfoTextPrefab: {fileID: 1233626668604532, guid: 3fdcf6c6ea22c3642aaed237f677eb79,
     type: 2}
   canvasPrefab: {fileID: 1426637180031558, guid: 7dfedbc4a768b4440a7b4547908d4375,
+    type: 2}
+  sfCirclePrefab: {fileID: 1354384521003298, guid: c29eaa876a7b4144a8a75a24bf782180,
     type: 2}
   selectController: {fileID: 1303643158}
 --- !u!114 &1568010938
