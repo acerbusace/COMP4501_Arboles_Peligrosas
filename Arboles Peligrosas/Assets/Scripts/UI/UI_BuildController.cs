@@ -22,7 +22,12 @@ public class UI_BuildController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        canvas = Instantiate(canvasPrefab);
+        if (GameObject.FindObjectOfType<Canvas>() != null) {
+            canvas = GameObject.FindObjectOfType<Canvas>().gameObject;
+        } else {
+            canvas = Instantiate(canvasPrefab);
+        }
+
         buttons = new List<GameObject>();
 
         //createButtons();

@@ -14,7 +14,13 @@ public class UI_ResourceController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject canvas = Instantiate(canvasPrefab);
+        GameObject canvas;
+        if (GameObject.FindObjectOfType<Canvas>() != null) {
+            canvas = GameObject.FindObjectOfType<Canvas>().gameObject;
+        } else {
+            canvas = Instantiate(canvasPrefab);
+        }
+
         GameObject resourcePannel = Instantiate(resourcePannelPrefab, canvas.transform, false);
         //GameObject canvas = new GameObject("ResourceCanvas");
         //GameObject resourcePannel = Instantiate(resourcePannelPrefab);

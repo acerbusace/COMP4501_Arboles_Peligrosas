@@ -15,21 +15,43 @@ public class UI_UnitController : MonoBehaviour {
 
     public SelectController selectController;
     private List<GameObject> selectedFrames;
+    private List<GameObject> selectedFramesNew;
 
 	// Use this for initialization
 	void Start () {
         sfInfoPannels = new List<GameObject>();
         sfCircles = new List<GameObject>();
-        canvas = Instantiate(canvasPrefab);
+        selectedFrames = new List<GameObject>();
+        selectedFramesNew = selectController.getSelectedFrames();
+
+        if (GameObject.FindObjectOfType<Canvas>() != null) {
+            canvas = GameObject.FindObjectOfType<Canvas>().gameObject;
+        } else {
+            canvas = Instantiate(canvasPrefab);
+        }
 	}
+
+    bool difference(List<GameObject> one, List<GameObject> two) {
+        if (one.Count != two.Count) return true;
+        for (int i = 0; i < one.Count; ++i) {
+            if (one[i].GetInstanceID() != two[i].GetInstanceID()) return true;
+        }
+
+        return false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        clearSelectableInfo();
-        setSelectableInfo();
+        if (difference(selectedFrames, selectedFramesNew)) {
+            print("should be a difference");
+            selectedFrames = new List<GameObject>(selectedFramesNew);
 
-        clearSelectableCircle();
-        setSelectableCircle();
+            clearSelectableInfo();
+            clearSelectableCircle();
+
+            setSelectableInfo();
+            setSelectableCircle();
+        }
 	}
 
     GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pannelPos = new Vector3()) {
@@ -62,7 +84,7 @@ public class UI_UnitController : MonoBehaviour {
     {
         foreach (GameObject sf in selectedFrames)
         {
-            GameObject circle = Instantiate(sfCirclePrefab, sf.transform.position, Quaternion.identity);
+            GameObject circle = Instantiate(sfCirclePrefab, sf.transform);
             float x = sf.GetComponent<Collider>().bounds.size.x;
             float z = sf.GetComponent<Collider>().bounds.size.z;
             circle.transform.localScale = new Vector3(x + 0.5f, circle.transform.localScale.y, z + 0.5f);
@@ -85,10 +107,8 @@ public class UI_UnitController : MonoBehaviour {
         int i = 0;
         Vector3 pos = new Vector3(0f, 0f, 0f);
 
-        selectedFrames = selectController.getSelectedFrames();
         foreach (GameObject sf in selectedFrames) {
             UI_SelectedFrame sfInfo = sf.GetComponent<Selectable>().getSFInfo();
-
 
             GameObject pannel = createInfoPannel(sfInfo, pos);
             sfInfoPannels.Add(pannel);
