@@ -66,7 +66,7 @@ public class UI_UnitController : MonoBehaviour {
             float x = sf.GetComponent<Collider>().bounds.size.x;
             float z = sf.GetComponent<Collider>().bounds.size.z;
             circle.transform.localScale = new Vector3(x + 0.5f, circle.transform.localScale.y, z + 0.5f);
-            print(sf.transform.position + " :/ " + circle.transform.position);
+
             sfCircles.Add(circle);
         }
     }

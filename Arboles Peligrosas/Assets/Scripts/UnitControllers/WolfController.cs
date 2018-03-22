@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WolfController : Flocker {
 
-	// Use this for initialization
-	void Start () {
+    Animator anim;
+
+    // Use this for initialization
+    void Start () {
         unitName = "Tiger";
         unitHealth = 100f;
         speed = 30f;
@@ -18,6 +20,13 @@ public class WolfController : Flocker {
         sfInfo.info = new Dictionary<string, string>();
 
         //queueMove(new Vector3(1000, 0, 1000));
+    }
+
+    public override void update()
+    {
+        base.update();
+        float move = GetComponent<Rigidbody>().velocity.magnitude;
+        anim.SetFloat("Speed", move);
     }
 
     public override void updateSFInfo()

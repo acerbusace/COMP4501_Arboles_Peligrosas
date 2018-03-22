@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 4689438167663856}
   - component: {fileID: 136690593465942774}
   - component: {fileID: 54386189084258414}
+  - component: {fileID: 95297629986350368}
   m_Layer: 0
   m_Name: Gorilla
   m_TagString: Enemy
@@ -2433,6 +2434,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!95 &95297629986350368
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1346842493658886}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 40886fe20011f6c4882b854462b657b9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111173415166145114
 Animation:
   m_ObjectHideFlags: 1

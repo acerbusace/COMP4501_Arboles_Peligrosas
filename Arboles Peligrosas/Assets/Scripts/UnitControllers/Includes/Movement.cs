@@ -48,6 +48,7 @@ public class Movement : Action
         if (HelperFunctions.rotateTowardsVelocity(rigidbody.gameObject, rotationSpeed, dir))
         {
             rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
+            Debug.Log("done rotating");
 
             if (flock)
             {

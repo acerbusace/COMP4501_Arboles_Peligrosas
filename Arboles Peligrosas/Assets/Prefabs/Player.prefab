@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 95835254950095202}
   - component: {fileID: 136021137741896648}
   - component: {fileID: 54138784538450078}
-  - component: {fileID: 114509715139603302}
+  - component: {fileID: 114542374374016540}
   m_Layer: 0
   m_Name: Player
   m_TagString: Selectable,Moveable,Gatherer,Builder
@@ -2221,15 +2221,15 @@ Animator:
   m_GameObject: {fileID: 1302276149223244}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: bfc243e7f320f4346a82fd38ca398fe7, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a312aaf1f5a8574aa77caa09b6d5419, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114509715139603302
+--- !u!114 &114542374374016540
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
