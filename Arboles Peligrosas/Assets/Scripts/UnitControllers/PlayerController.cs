@@ -9,7 +9,7 @@ public class PlayerController : Friendly
     {
         unitName = "Player";
         unitHealth = 100f;
-        speed = 30f;
+        speed = 100f;
         gatherSpeed = 1f;
         gatherDistance = 5f;
         rotationSpeed = 15f;

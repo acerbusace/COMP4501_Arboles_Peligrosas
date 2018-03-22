@@ -52,8 +52,6 @@ public abstract class Actor : MonoBehaviour, Selectable
 
         if (unitHealth <= 0)
             Destroy(gameObject);
-
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     
@@ -161,7 +159,7 @@ public class Flocker : Enemy
 
         leader = findLeader();
         if (leader == null) isLeader = true;
-        else isLeader = false;
+        //else isLeader = false;
 
         if (currAction != null) currAction.update();
 
@@ -170,7 +168,7 @@ public class Flocker : Enemy
             if (currAction == null || currAction.isFinished())
             {
                 print("im the leader deciding my move: " + gameObject.GetInstanceID());
-                decideNextMove();
+                //decideNextMove();
             }
         }
         else
@@ -185,8 +183,9 @@ public class Flocker : Enemy
             //    GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * maxVelocity;
             //}
             
-            GetComponent<Rigidbody>().AddForce(getFlockVector() * 3f);
+            //GetComponent<Rigidbody>().AddForce(getFlockVector() * 10f, ForceMode.Acceleration);
         }
+        GetComponent<Rigidbody>().AddForce(getFlockVector() * 10f, ForceMode.Acceleration);
     }
 
     private Flocker findLeader()
@@ -234,8 +233,7 @@ public class Flocker : Enemy
     }
     public bool getLeaderStatus() { return isLeader; }
 
-    public Vector3 getFlockVector()
-    {
+    public Vector3 getFlockVector() {
         Rigidbody rigidBody = GetComponent<Rigidbody>();
         Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, neighbourhoodRadius);
 
@@ -256,24 +254,20 @@ public class Flocker : Enemy
                     alignment += t.velocity;
                     cohesion += t.position;
                     seperation += (t.position - rigidBody.position);
+
                 }
             }
         }
 
         alignment /= counter;
-        //alignment = alignment.normalized;
 
         cohesion /= counter;
         cohesion = cohesion - rigidBody.position;
-        //cohesion = cohesion.normalized;
-        //cohesion /= 2;
 
         seperation /= counter;
         seperation = -seperation;
-        //seperation = seperation.normalized;
 
-        //return (alignment + cohesion + seperation).normalized;
-        return (alignment + cohesion + seperation);
+        return (alignment + cohesion*1.5f + seperation).normalized;
     }
 }
 

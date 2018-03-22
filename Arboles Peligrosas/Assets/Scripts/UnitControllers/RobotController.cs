@@ -9,7 +9,7 @@ public class RobotController : Friendly
     {
         unitName = "Robot";
         unitHealth = 100f;
-        speed = 20f;
+        speed = 75f;
         gatherSpeed = 0.5f;
         gatherDistance = 5f;
         rotationSpeed = 12f;

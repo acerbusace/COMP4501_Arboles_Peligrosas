@@ -36,40 +36,22 @@ public class Movement : Action
     {
         Vector3 dir = destination - rigidbody.position;
 
-        if (first)
-        {
-            rigidbody.velocity = Vector3.zero;
-            first = false;
-        }
-
         if (HelperFunctions.rotateTowardsVelocity(rigidbody.gameObject, rotationSpeed, dir))
         {
-            rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
+            if (rigidbody.velocity.magnitude < maxVelocity)
+                rigidbody.AddForce(dir.normalized * speed, ForceMode.Acceleration);
 
-            Flocker flocker = gameObject.GetComponent<Flocker>();
-            //if (flocker)
-            //{
-            //    rigidbody.velocity += flocker.getFlockVector() * speed * Time.deltaTime;
-            //}
-
-            if (rigidbody.velocity.magnitude > maxVelocity)
-            {
-                rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
-            }
+        } else {
+            rigidbody.velocity = Vector3.zero;
         }
     }
 
     public override void update()
     {
-        if (Vector3.Distance(rigidbody.position, destination) < 5f)
-        {
-            rigidbody.velocity *= (1f - (0.5f * Time.deltaTime));
-        } else if(Vector3.Distance(rigidbody.position, destination) < 1f) {
-            rigidbody.velocity = Vector3.zero;
+        if(!finished) start();
+
+        if(Vector3.Distance(rigidbody.position, destination) < 1f) {
             finished = true;
-        } else if (!finished)
-        {
-            start();
         }
     }
 

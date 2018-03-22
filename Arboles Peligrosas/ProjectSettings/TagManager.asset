@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Selectable,Enemy
   - Selectable,Enemy,Flocker
+  - Selectable,Enemy,Flocker,Tiger
   layers:
   - Default
   - TransparentFX
