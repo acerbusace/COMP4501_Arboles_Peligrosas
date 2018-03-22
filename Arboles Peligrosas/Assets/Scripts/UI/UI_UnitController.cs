@@ -87,7 +87,10 @@ public class UI_UnitController : MonoBehaviour {
             GameObject circle = Instantiate(sfCirclePrefab, sf.transform);
             float x = sf.GetComponent<Collider>().bounds.size.x;
             float z = sf.GetComponent<Collider>().bounds.size.z;
-            circle.transform.localScale = new Vector3(x + 0.5f, circle.transform.localScale.y, z + 0.5f);
+            circle.transform.localScale = new Vector3(
+                (x + 0.5f) / circle.transform.lossyScale.x, 
+                circle.transform.localScale.y / (circle.transform.lossyScale.y / circle.transform.localScale.y), 
+                (z + 0.5f) / circle.transform.lossyScale.z);
             sfCircles.Add(circle);
         }
     }

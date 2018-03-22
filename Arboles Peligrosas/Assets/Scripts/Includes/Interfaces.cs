@@ -167,7 +167,6 @@ public class Flocker : Enemy
         {
             if (currAction == null || currAction.isFinished())
             {
-                print("im the leader deciding my move: " + gameObject.GetInstanceID());
                 //decideNextMove();
             }
         }
