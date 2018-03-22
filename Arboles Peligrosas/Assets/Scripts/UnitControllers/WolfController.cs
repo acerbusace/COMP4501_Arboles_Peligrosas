@@ -14,6 +14,7 @@ public class WolfController : Flocker {
         wanderRange = 15f;
         rotationSpeed = 4f;
         maxVelocity = 9f;
+        neighbourhoodRadius = 1000f;
 
         sfInfo.info = new Dictionary<string, string>();
 
@@ -30,5 +31,6 @@ public class WolfController : Flocker {
             HelperFunctions.addToDict(sfInfo.info, "State", "Wandering");
         else
             HelperFunctions.addToDict(sfInfo.info, "State", "");
+        HelperFunctions.addToDict(sfInfo.info, "Leader", isLeader.ToString());
     }
 }

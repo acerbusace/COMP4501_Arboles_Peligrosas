@@ -75,4 +75,10 @@ public class Gather : Action
     {
         return finished;
     }
+
+    public override Vector3 getDestination()
+    {
+        return resource.transform.position;
+    }
+
 }

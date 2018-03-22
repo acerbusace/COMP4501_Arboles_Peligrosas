@@ -18,9 +18,7 @@ public enum Status
 
 public abstract class Actor : MonoBehaviour, Selectable
 {
-    protected Action currentAction;
     protected UI_SelectedFrame sfInfo;
-    protected List<Action> actions;
 
     protected string unitName;
     protected float unitHealth;
@@ -30,10 +28,7 @@ public abstract class Actor : MonoBehaviour, Selectable
     protected float gatherDistance;
     protected float rotationSpeed;
 
-    public Actor()
-    {
-        actions = new List<Action>();
-    }
+    public Actor() { }
 
     void Update()
     {
@@ -54,10 +49,36 @@ public abstract class Actor : MonoBehaviour, Selectable
     public virtual void update()
     {
         updateSFInfo();
+
+        if (unitHealth <= 0)
+            Destroy(gameObject);
+
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    }
+
+    
+
+    public UI_SelectedFrame getSFInfo() { return sfInfo; }
+    public virtual void updateSFInfo() {  }
+}
+
+public class Friendly : Actor
+{
+    protected List<Action> actions;
+    public Friendly()
+    {
+        actions = new List<Action>();
+    }
+
+    public override void update()
+    {
+        updateSFInfo();
         updateQueue();
 
         if (unitHealth <= 0)
             Destroy(gameObject);
+
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     public void updateQueue()
@@ -106,7 +127,8 @@ public abstract class Actor : MonoBehaviour, Selectable
         actions.Clear();
     }
 
-    void OnCollisionEnter(Collision col) {
+    void OnCollisionEnter(Collision col)
+    {
         handleCollision(col);
     }
 
@@ -116,49 +138,89 @@ public abstract class Actor : MonoBehaviour, Selectable
             clear();
     }
 
-    public UI_SelectedFrame getSFInfo() { return sfInfo; }
-    public virtual void updateSFInfo() {  }
-}
-
-public class Friendly : Actor
-{
+    public Action getAction() { if (actions.Count > 0) return actions[0]; else return null; }
 }
 
 public class Enemy : Actor
 {
+    protected EnemyState state;
+}
+
+public class Flocker : Enemy
+{
+    protected Action currAction;
     protected float seekRange;
     protected float wanderRange;
-    protected EnemyState state;
+    protected float neighbourhoodRadius;
+    protected bool isLeader;
+    protected Flocker leader;
 
     void Update()
     {
         update();
 
-        if (actions.Count == 0)
+        leader = findLeader();
+        if (leader == null) isLeader = true;
+        else isLeader = false;
+
+        if (currAction != null) currAction.update();
+
+        if (isLeader)
         {
-            Debug.Log("deciding move");
-            decideNextMove();
+            if (currAction == null || currAction.isFinished())
+            {
+                print("im the leader deciding my move: " + gameObject.GetInstanceID());
+                decideNextMove();
+            }
         }
+        else
+        {
+            //if (actions.Count == 0)
+            //    queueMove(leader.getAction().getDestination());
+
+            //GetComponent<Rigidbody>().velocity += getFlockVector() * speed * Time.deltaTime;
+
+            //if (GetComponent<Rigidbody>().velocity.magnitude > maxVelocity)
+            //{
+            //    GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * maxVelocity;
+            //}
+            
+            GetComponent<Rigidbody>().AddForce(getFlockVector() * 3f);
+        }
+    }
+
+    private Flocker findLeader()
+    {
+        if (leader != null && Vector3.Distance(leader.transform.position, transform.position) < neighbourhoodRadius)
+            return leader;
+
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, neighbourhoodRadius);
+
+        foreach (Collider c in hitColliders)
+        {
+            if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
+            {
+                Flocker f = c.gameObject.GetComponent<Flocker>();
+                if (f.getLeaderStatus() && f.gameObject != gameObject)
+                {
+                    return f;
+                }
+            }
+        }
+
+        return null;
     }
 
     public void decideNextMove()
     {
-        if (UnityEngine.Random.Range(0, 2) == 0)
-        {
-            state = EnemyState.Seeking;
-            seek();
-        }
-        else
-        {
-            state = EnemyState.Wandering;
-            wander();
-        }
+        state = EnemyState.Seeking;
+        seek();
     }
 
     public void seek()
     {
         Vector3 target = new Vector3(UnityEngine.Random.Range(-seekRange, seekRange), 0f, UnityEngine.Random.Range(-seekRange, seekRange));
-        queueMove(transform.position + target);
+        currAction = new Movement(gameObject, transform.position + target, speed, maxVelocity, rotationSpeed);
     }
 
     public void wander()
@@ -166,25 +228,53 @@ public class Enemy : Actor
         for (int i = 0; i < UnityEngine.Random.Range(2, 10); ++i)
         //for (int i = 0; i < 3; ++i)
         {
-            Debug.Log("it should do this 3 times");
             Vector3 target = new Vector3(UnityEngine.Random.Range(-wanderRange, wanderRange), 0f, UnityEngine.Random.Range(-wanderRange, wanderRange));
-            queueMove(transform.position + target);
+            currAction = new Movement(gameObject, transform.position + target, speed, maxVelocity, rotationSpeed);
         }
     }
-}
+    public bool getLeaderStatus() { return isLeader; }
 
-public class Flocker : Enemy
-{
-
-    public override void queueMove(Vector3 destination)
+    public Vector3 getFlockVector()
     {
-        actions.Add(new Movement(gameObject, destination, speed, maxVelocity, rotationSpeed, true));
-    }
+        Rigidbody rigidBody = GetComponent<Rigidbody>();
+        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, neighbourhoodRadius);
 
-    public override void handleCollision(Collision col)
-    {
-    }
+        int counter = 0;
+        Vector3 alignment = new Vector3();
+        Vector3 cohesion = new Vector3();
+        Vector3 seperation = new Vector3();
+        foreach (Collider c in hitColliders)
+        {
+            if (c.gameObject.GetInstanceID() != GetInstanceID())
+            {
+                if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
+                {
+                    counter++;
 
+                    Rigidbody t = c.gameObject.GetComponent<Rigidbody>();
+
+                    alignment += t.velocity;
+                    cohesion += t.position;
+                    seperation += (t.position - rigidBody.position);
+                }
+            }
+        }
+
+        alignment /= counter;
+        //alignment = alignment.normalized;
+
+        cohesion /= counter;
+        cohesion = cohesion - rigidBody.position;
+        //cohesion = cohesion.normalized;
+        //cohesion /= 2;
+
+        seperation /= counter;
+        seperation = -seperation;
+        //seperation = seperation.normalized;
+
+        //return (alignment + cohesion + seperation).normalized;
+        return (alignment + cohesion + seperation);
+    }
 }
 
 public class Resource: MonoBehaviour, Selectable
@@ -261,6 +351,7 @@ public abstract class Action
     public abstract void update();
     public abstract bool isFinished();
     public abstract void start();
+    public abstract Vector3 getDestination();
 }
 
 public class Build : Action
@@ -278,6 +369,11 @@ public class Build : Action
     public override void update()
     {
         
+    }
+
+    public override Vector3 getDestination()
+    {
+        return Vector3.zero;
     }
 }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Actor
+public class PlayerController : Friendly
 {
 
     void Start()
@@ -12,7 +12,7 @@ public class PlayerController : Actor
         speed = 30f;
         gatherSpeed = 1f;
         gatherDistance = 5f;
-        rotationSpeed = 4f;
+        rotationSpeed = 15f;
         maxVelocity = 10f;
 
         sfInfo.info = new Dictionary<string, string>();

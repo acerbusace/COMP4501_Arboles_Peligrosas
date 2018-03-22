@@ -5,13 +5,11 @@ using UnityEngine;
 
 public class Movement : Action
 {
-
-    static float neighbourhoodRadius = 300f;
-    Vector3 destination;
+    private Vector3 destination;
+    GameObject gameObject;
     Rigidbody rigidbody;
     float speed;
     float maxVelocity;
-    bool flock;
     float rotationSpeed;
 
     //Flock flock;
@@ -21,13 +19,13 @@ public class Movement : Action
     bool first;
     bool finished;
 
-    public Movement(GameObject gb, Vector3 dest, float s, float mS, float rS, bool f = false)
+    public Movement(GameObject gb, Vector3 dest, float s, float mS, float rS)
     {
-        rigidbody = gb.GetComponent<Rigidbody>();
+        gameObject = gb;
+        rigidbody = gameObject.GetComponent<Rigidbody>();
         destination = dest;
         speed = s;
         maxVelocity = mS;
-        flock = f;
         rotationSpeed = rS;
 
         first = true;
@@ -37,7 +35,6 @@ public class Movement : Action
     public override void start()
     {
         Vector3 dir = destination - rigidbody.position;
-        //rigidbody.velocity = dir.normalized * speed;
 
         if (first)
         {
@@ -49,10 +46,11 @@ public class Movement : Action
         {
             rigidbody.velocity += dir.normalized * speed * Time.deltaTime;
 
-            if (flock)
-            {
-                rigidbody.velocity += getFlockVector(rigidbody) * speed * Time.deltaTime;
-            }
+            Flocker flocker = gameObject.GetComponent<Flocker>();
+            //if (flocker)
+            //{
+            //    rigidbody.velocity += flocker.getFlockVector() * speed * Time.deltaTime;
+            //}
 
             if (rigidbody.velocity.magnitude > maxVelocity)
             {
@@ -63,11 +61,15 @@ public class Movement : Action
 
     public override void update()
     {
-        if (!finished) start();
-
-        if (Vector3.Distance(rigidbody.position, destination) < 0.25f) {
+        if (Vector3.Distance(rigidbody.position, destination) < 5f)
+        {
+            rigidbody.velocity *= (1f - (0.5f * Time.deltaTime));
+        } else if(Vector3.Distance(rigidbody.position, destination) < 1f) {
             rigidbody.velocity = Vector3.zero;
             finished = true;
+        } else if (!finished)
+        {
+            start();
         }
     }
 
@@ -76,40 +78,7 @@ public class Movement : Action
         return finished;
     }
 
-    public Vector3 getFlockVector(Rigidbody rigidBody)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, neighbourhoodRadius);
+    
 
-        int counter = 0;
-        Vector3 alignment = new Vector3();
-        Vector3 cohesion = new Vector3();
-        Vector3 seperation = new Vector3();
-        foreach (Collider c in hitColliders)
-        {
-            if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
-            {
-                counter++;
-
-                Rigidbody t = c.gameObject.GetComponent<Rigidbody>();
-
-                alignment += t.velocity;
-                cohesion += t.position;
-                seperation += (t.position - rigidBody.position);
-            }
-        }
-
-        alignment /= counter;
-        alignment = alignment.normalized;
-
-        cohesion /= counter;
-        cohesion = cohesion - rigidBody.position;
-        cohesion = cohesion.normalized;
-        //cohesion /= 2;
-
-        seperation /= counter;
-        seperation = -seperation;
-        seperation = seperation.normalized;
-
-        return (alignment + cohesion*1.2f + seperation).normalized;
-    }
+    public override Vector3 getDestination() { return destination; }
 }
