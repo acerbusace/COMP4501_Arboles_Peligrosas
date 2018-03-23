@@ -2,23 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WolfController : Flocker {
+public class TigerController : Flocker {
+
+    SteeringController steeringController;
 
 	// Use this for initialization
 	void Start () {
         unitName = "Tiger";
         unitHealth = 100f;
-        speed = 30f;
-
-        seekRange = 50f;
-        wanderRange = 15f;
+        speed = 100f;
+        
         rotationSpeed = 4f;
-        maxVelocity = 9f;
-        neighbourhoodRadius = 1000f;
+        maxVelocity = 7.5f;
 
         sfInfo.info = new Dictionary<string, string>();
 
-        //queueMove(new Vector3(1000, 0, 1000));
+        steeringController = GetComponent<SteeringController>();
+        steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        steeringController.addDestination(new Vector3(200f, 0f, 0));
     }
 
     public override void updateSFInfo()

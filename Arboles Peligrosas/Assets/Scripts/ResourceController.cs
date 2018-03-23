@@ -32,7 +32,12 @@ public class ResourceController : MonoBehaviour {
                 new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
                 Quaternion.identity
             );
-            tree.AddComponent<Tree>();
+            Tree treeComp = tree.AddComponent<Tree>();
+
+            float remaining = UnityEngine.Random.Range(5f, 20f);
+            treeComp.setRemaining(remaining);
+            float scale = 1f + (remaining / 20f) * 3f;
+            tree.transform.localScale = new Vector3(scale, scale, scale);
 
             resources.Add(tree);
         }

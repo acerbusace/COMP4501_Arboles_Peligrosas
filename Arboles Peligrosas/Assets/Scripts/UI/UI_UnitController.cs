@@ -43,7 +43,6 @@ public class UI_UnitController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (difference(selectedFrames, selectedFramesNew)) {
-            print("should be a difference");
             selectedFrames = new List<GameObject>(selectedFramesNew);
 
             clearSelectableInfo();

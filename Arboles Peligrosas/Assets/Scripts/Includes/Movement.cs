@@ -38,9 +38,9 @@ public class Movement : Action
 
         if (HelperFunctions.rotateTowardsVelocity(rigidbody.gameObject, rotationSpeed, dir))
         {
-            if (rigidbody.velocity.magnitude < maxVelocity)
-                rigidbody.AddForce(dir.normalized * speed, ForceMode.Acceleration);
-
+            rigidbody.AddForce(dir.normalized * speed, ForceMode.Acceleration);
+            
+            if (rigidbody.velocity.magnitude > maxVelocity) rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
         } else {
             rigidbody.velocity = Vector3.zero;
         }
@@ -48,6 +48,7 @@ public class Movement : Action
 
     public override void update()
     {
+        Debug.Log("this should be getting called");
         if(!finished) start();
 
         if(Vector3.Distance(rigidbody.position, destination) < 1f) {

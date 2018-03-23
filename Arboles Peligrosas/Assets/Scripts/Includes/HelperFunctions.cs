@@ -29,10 +29,14 @@ public class HelperFunctions {
     public static void addToDict(Dictionary<string, string> dict, string key, string val)
     {
         string tmp;
-        if (dict.TryGetValue(key, out tmp))
-            dict[key] = val;
-        else
-            dict.Add(key, val);
+        try
+        {
+            if (dict.TryGetValue(key, out tmp))
+                dict[key] = val;
+            else
+                dict.Add(key, val);
+        }
+        catch (NullReferenceException e) { }
     }
 
     public static Vector3 hitToVector(RaycastHit hit, GameObject go = null)

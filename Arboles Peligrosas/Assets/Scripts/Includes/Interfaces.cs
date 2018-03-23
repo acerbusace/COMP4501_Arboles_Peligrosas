@@ -58,6 +58,9 @@ public abstract class Actor : MonoBehaviour, Selectable
 
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
     public virtual void updateSFInfo() {  }
+
+    public float getMaxVelocity()  {  return maxVelocity; }
+    public float getSpeed() { return speed; }
 }
 
 public class Friendly : Actor
@@ -70,13 +73,9 @@ public class Friendly : Actor
 
     public override void update()
     {
-        updateSFInfo();
+        base.update();
+
         updateQueue();
-
-        if (unitHealth <= 0)
-            Destroy(gameObject);
-
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
     }
 
     public void updateQueue()
@@ -153,9 +152,9 @@ public class Flocker : Enemy
     protected bool isLeader;
     protected Flocker leader;
 
-    void Update()
+    public override void update()
     {
-        update();
+        base.update();
 
         leader = findLeader();
         if (leader == null) isLeader = true;
@@ -181,10 +180,10 @@ public class Flocker : Enemy
             //{
             //    GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * maxVelocity;
             //}
-            
+
             //GetComponent<Rigidbody>().AddForce(getFlockVector() * 10f, ForceMode.Acceleration);
         }
-        GetComponent<Rigidbody>().AddForce(getFlockVector() * 10f, ForceMode.Acceleration);
+
     }
 
     private Flocker findLeader()
@@ -232,42 +231,7 @@ public class Flocker : Enemy
     }
     public bool getLeaderStatus() { return isLeader; }
 
-    public Vector3 getFlockVector() {
-        Rigidbody rigidBody = GetComponent<Rigidbody>();
-        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, neighbourhoodRadius);
-
-        int counter = 0;
-        Vector3 alignment = new Vector3();
-        Vector3 cohesion = new Vector3();
-        Vector3 seperation = new Vector3();
-        foreach (Collider c in hitColliders)
-        {
-            if (c.gameObject.GetInstanceID() != GetInstanceID())
-            {
-                if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
-                {
-                    counter++;
-
-                    Rigidbody t = c.gameObject.GetComponent<Rigidbody>();
-
-                    alignment += t.velocity;
-                    cohesion += t.position;
-                    seperation += (t.position - rigidBody.position);
-
-                }
-            }
-        }
-
-        alignment /= counter;
-
-        cohesion /= counter;
-        cohesion = cohesion - rigidBody.position;
-
-        seperation /= counter;
-        seperation = -seperation;
-
-        return (alignment + cohesion*1.5f + seperation).normalized;
-    }
+    
 }
 
 public class Resource: MonoBehaviour, Selectable
@@ -312,6 +276,11 @@ public class Resource: MonoBehaviour, Selectable
         HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
         HelperFunctions.addToDict(sfInfo.info, "Remaining", ((int)remaining).ToString());
     }
+
+    public void setRemaining (float r)
+    {
+        remaining = r;
+    }
 }
 
 public class Tree: Resource
@@ -320,6 +289,7 @@ public class Tree: Resource
     {
         unitName = "Tree";
         remaining = 10f;
+
         gatherRate = 1f;
 
         sfInfo.info = new Dictionary<string, string>();
