@@ -5,6 +5,7 @@ using UnityEngine;
 public class TigerController : Flocker {
 
     SteeringController steeringController;
+    Animator anim;
 
 	// Use this for initialization
 	void Start () {
@@ -16,12 +17,19 @@ public class TigerController : Flocker {
         maxVelocity = 7.5f;
 
         sfInfo.info = new Dictionary<string, string>();
-
+        anim = GetComponent<Animator>();
         steeringController = GetComponent<SteeringController>();
         steeringController.addDestination(new Vector3(50f, 0f, 0f));
         steeringController.addDestination(new Vector3(100f, 0f, -50f));
         steeringController.addDestination(new Vector3(150f, 0f, 50f));
         steeringController.addDestination(new Vector3(200f, 0f, 0));
+    }
+
+    public override void update()
+    {
+        base.update();
+        float move = GetComponent<Rigidbody>().velocity.magnitude;
+        anim.SetFloat("speed", move);
     }
 
     public override void updateSFInfo()

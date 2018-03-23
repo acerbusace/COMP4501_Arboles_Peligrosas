@@ -9,12 +9,17 @@ public class SteeringController : MonoBehaviour {
     private List<Vector3> path;
     private float pathRadius; // radius to choose next path
 
+    public SteeringController()
+    {
+        path = new List<Vector3>();
+    }
+
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
         actor = GetComponent<Actor>();
 
-        path = new List<Vector3>();
+        
         pathRadius = 5f;
 
 	}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : Friendly
 {
+    Animator anim;
 
     void Start()
     {
@@ -16,7 +17,31 @@ public class PlayerController : Friendly
         maxVelocity = 10f;
 
         sfInfo.info = new Dictionary<string, string>();
+
+        anim = GetComponent<Animator>();
     }
+
+    public override void update()
+    {
+        base.update();
+        float move = GetComponent<Rigidbody>().velocity.magnitude;
+        bool action;
+        anim.SetFloat("speed", move);
+        if (actions.Count > 0)
+        {
+            if (actions[0].GetType() == typeof(Gather))
+            {
+                action = true;
+                anim.SetBool("minning", action);
+            }
+        } else
+        {
+            action = false;
+            anim.SetBool("minning", action);
+        }
+        
+    }
+
 
     public override void updateSFInfo()
     {

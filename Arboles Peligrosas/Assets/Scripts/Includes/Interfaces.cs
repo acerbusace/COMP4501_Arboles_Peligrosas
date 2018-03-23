@@ -52,6 +52,8 @@ public abstract class Actor : MonoBehaviour, Selectable
 
         if (unitHealth <= 0)
             Destroy(gameObject);
+
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
 
     
@@ -263,6 +265,7 @@ public class Resource: MonoBehaviour, Selectable
 
     void Update()
     {
+        Debug.Log("update tree");
         updateSFInfo();
         if (remaining <= 0)
         {
