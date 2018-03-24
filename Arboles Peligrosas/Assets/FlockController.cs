@@ -24,21 +24,24 @@ public class FlockController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 flock = (getAlignmentVector() + getCohesionVector() + getSeperationVector() * 2f);
+        Vector3 flock = new Vector3();
+        flock += getAlignmentVector() * 100f;
+        //flock += getCohesionVector();
+        //flock += getSeperationVector() * 1.5f;
 
-        rigidBody.AddForce(flock * 10f, ForceMode.Acceleration);
+        rigidBody.AddForce(flock.normalized * actor.getSpeed(), ForceMode.Acceleration);
         if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
     }
 
     public Vector3 getAlignmentVector()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, alignmentRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, alignmentRadius);
 
         int counter = 0;
         Vector3 alignment = new Vector3();
         foreach (Collider c in hitColliders)
         {
-            if (c.gameObject.GetInstanceID() != GetInstanceID())
+            if (c.gameObject != gameObject)
             {
                 if (HelperFunctions.containsTag(flockTag, c.gameObject.tag))
                 {
@@ -57,12 +60,12 @@ public class FlockController : MonoBehaviour {
 
     public Vector3 getCohesionVector()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, cohesionRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, cohesionRadius);
         int counter = 0;
         Vector3 cohesion = new Vector3();
         foreach (Collider c in hitColliders)
         {
-            if (c.gameObject.GetInstanceID() != GetInstanceID())
+            if (c.gameObject != gameObject)
             {
                 if (HelperFunctions.containsTag(flockTag, c.gameObject.tag))
                 {
@@ -76,19 +79,19 @@ public class FlockController : MonoBehaviour {
         }
 
         cohesion /= counter;
-        cohesion = cohesion - rigidBody.position;
+        cohesion = cohesion - transform.position;
         return cohesion.normalized;
     }
 
     public Vector3 getSeperationVector()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(rigidBody.transform.position, seperationRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, seperationRadius);
 
         int counter = 0;
         Vector3 seperation = new Vector3();
         foreach (Collider c in hitColliders)
         {
-            if (c.gameObject.GetInstanceID() != GetInstanceID())
+            if (c.gameObject != gameObject)
             {
                 if (HelperFunctions.containsTag(flockTag, c.gameObject.tag))
                 {

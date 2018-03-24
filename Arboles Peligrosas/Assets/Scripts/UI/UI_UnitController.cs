@@ -31,15 +31,6 @@ public class UI_UnitController : MonoBehaviour {
         }
 	}
 
-    bool difference(List<GameObject> one, List<GameObject> two) {
-        if (one.Count != two.Count) return true;
-        for (int i = 0; i < one.Count; ++i) {
-            if (one[i].GetInstanceID() != two[i].GetInstanceID()) return true;
-        }
-
-        return false;
-    }
-	
 	// Update is called once per frame
 	void Update () {
         if (difference(selectedFrames, selectedFramesNew)) {
@@ -52,6 +43,30 @@ public class UI_UnitController : MonoBehaviour {
             setSelectableCircle();
         }
 	}
+
+    // return true if there is a difference between the two lists
+    // also updates the pannels with new information
+    bool difference(List<GameObject> selectedFrames, List<GameObject> selectedFramesNew) {
+        if (selectedFrames.Count != selectedFramesNew.Count) return true;
+        for (int i = 0; i < selectedFrames.Count; ++i) {
+            if (selectedFrames[i].GetInstanceID() != selectedFramesNew[i].GetInstanceID()) return true;
+
+            UI_SelectedFrame sfInfo = selectedFrames[i].GetComponent<Selectable>().getSFInfo();
+            Text[] texts = sfInfoPannels[i].GetComponentsInChildren<Text>();
+
+            int count = 0;
+            foreach (string key in sfInfo.info.Keys) {
+                string value = key + ": " + sfInfo.info[key];
+
+                if (texts[count].text != value)
+                    texts[count].text = value;
+
+                ++count;
+            }
+        }
+
+        return false;
+    }
 
     GameObject createInfoPannel(UI_SelectedFrame sfInfo, Vector3 pannelPos = new Vector3()) {
         GameObject pannel = Instantiate(sfInfoPannelPrefab, canvas.transform, false);

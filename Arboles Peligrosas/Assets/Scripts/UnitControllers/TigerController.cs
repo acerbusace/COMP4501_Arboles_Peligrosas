@@ -14,7 +14,9 @@ public class TigerController : Flocker {
         speed = 100f;
         
         rotationSpeed = 4f;
-        maxVelocity = 7.5f;
+        maxVelocity = 15f;
+        leaderRadius = 50f;
+        seekRange = 100f;
 
         sfInfo.info = new Dictionary<string, string>();
         anim = GetComponent<Animator>();
@@ -24,22 +26,22 @@ public class TigerController : Flocker {
         steeringController.addDestination(new Vector3(100f, 0f, -50f));
         steeringController.addDestination(new Vector3(150f, 0f, 50f));
         steeringController.addDestination(new Vector3(200f, 0f, 0));
-        steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        steeringController.addDestination(new Vector3(200f, 0f, 0));
-        steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        steeringController.addDestination(new Vector3(200f, 0f, 0));
-        steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        steeringController.addDestination(new Vector3(200f, 0f, 0));
-        steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        steeringController.addDestination(new Vector3(200f, 0f, 0));
+        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        //steeringController.addDestination(new Vector3(200f, 0f, 0));
+        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        //steeringController.addDestination(new Vector3(200f, 0f, 0));
+        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        //steeringController.addDestination(new Vector3(200f, 0f, 0));
+        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        //steeringController.addDestination(new Vector3(200f, 0f, 0));
     }
 
     public override void update()
@@ -59,6 +61,6 @@ public class TigerController : Flocker {
             HelperFunctions.addToDict(sfInfo.info, "State", "Wandering");
         else
             HelperFunctions.addToDict(sfInfo.info, "State", "");
-        //HelperFunctions.addToDict(sfInfo.info, "Leader", isLeader.ToString());
+        HelperFunctions.addToDict(sfInfo.info, "Leader", isLeader.ToString());
     }
 }

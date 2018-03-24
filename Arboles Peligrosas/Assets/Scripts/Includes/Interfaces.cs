@@ -150,7 +150,7 @@ public class Flocker : Enemy
     protected Action currAction;
     protected float seekRange;
     protected float wanderRange;
-    protected float neighbourhoodRadius;
+    protected float leaderRadius;
     protected bool isLeader;
     protected Flocker leader;
 
@@ -166,7 +166,7 @@ public class Flocker : Enemy
         {
             if (GetComponent<SteeringController>().getPath().Count == 0)
             {
-               // Debug.Log("deciding next move");
+                Debug.Log("deciding next move");
                 //decideNextMove();
             }
         }
@@ -174,23 +174,20 @@ public class Flocker : Enemy
 
     private Flocker findLeader()
     {
-        if (leader != null && Vector3.Distance(leader.transform.position, transform.position) < neighbourhoodRadius)
+        if (leader != null && Vector3.Distance(leader.transform.position, transform.position) < leaderRadius)
             return leader;
 
-        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, neighbourhoodRadius);
+        Collider[] hitColliders = Physics.OverlapSphere(gameObject.transform.position, leaderRadius);
 
         foreach (Collider c in hitColliders)
         {
-            if (HelperFunctions.containsTag("Flocker", c.gameObject.tag))
-            {
-                Flocker f = c.gameObject.GetComponent<Flocker>();
-                if (f.getLeaderStatus() && f.gameObject != gameObject)
-                {
-                    return f;
+            if (c.gameObject != gameObject) {
+                if (HelperFunctions.containsTag("Flocker", c.gameObject.tag)) {
+                    Flocker f = c.gameObject.GetComponent<Flocker>();
+                    if (f.getLeaderStatus()) return f;
                 }
             }
         }
-
         return null;
     }
 
@@ -208,6 +205,7 @@ public class Flocker : Enemy
     {
         state = EnemyState.Seeking;
         Vector3 target = new Vector3(UnityEngine.Random.Range(-seekRange, seekRange), 0f, UnityEngine.Random.Range(-seekRange, seekRange));
+        Debug.Log("Dest: " + (transform.position + target));
         GetComponent<SteeringController>().addDestination(transform.position + target);
     }
 
