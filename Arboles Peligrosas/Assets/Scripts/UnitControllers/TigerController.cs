@@ -19,6 +19,23 @@ public class TigerController : Flocker {
         sfInfo.info = new Dictionary<string, string>();
         anim = GetComponent<Animator>();
         steeringController = GetComponent<SteeringController>();
+        //temporary (no AI yet)
+        steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        steeringController.addDestination(new Vector3(200f, 0f, 0));
+        steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        steeringController.addDestination(new Vector3(200f, 0f, 0));
+        steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        steeringController.addDestination(new Vector3(200f, 0f, 0));
+        steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        steeringController.addDestination(new Vector3(200f, 0f, 0));
         steeringController.addDestination(new Vector3(50f, 0f, 0f));
         steeringController.addDestination(new Vector3(100f, 0f, -50f));
         steeringController.addDestination(new Vector3(150f, 0f, 50f));
@@ -42,6 +59,6 @@ public class TigerController : Flocker {
             HelperFunctions.addToDict(sfInfo.info, "State", "Wandering");
         else
             HelperFunctions.addToDict(sfInfo.info, "State", "");
-        HelperFunctions.addToDict(sfInfo.info, "Leader", isLeader.ToString());
+        //HelperFunctions.addToDict(sfInfo.info, "Leader", isLeader.ToString());
     }
 }

@@ -48,7 +48,7 @@ public class Movement : Action
 
     public override void update()
     {
-        Debug.Log("this should be getting called");
+        //Debug.Log("this should be getting called");
         if(!finished) start();
 
         if(Vector3.Distance(rigidbody.position, destination) < 1f) {

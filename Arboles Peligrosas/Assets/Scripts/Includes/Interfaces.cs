@@ -160,32 +160,16 @@ public class Flocker : Enemy
 
         leader = findLeader();
         if (leader == null) isLeader = true;
-        //else isLeader = false;
-
-        if (currAction != null) currAction.update();
+        else isLeader = false;
 
         if (isLeader)
         {
-            if (currAction == null || currAction.isFinished())
+            if (GetComponent<SteeringController>().getPath().Count == 0)
             {
+               // Debug.Log("deciding next move");
                 //decideNextMove();
             }
         }
-        else
-        {
-            //if (actions.Count == 0)
-            //    queueMove(leader.getAction().getDestination());
-
-            //GetComponent<Rigidbody>().velocity += getFlockVector() * speed * Time.deltaTime;
-
-            //if (GetComponent<Rigidbody>().velocity.magnitude > maxVelocity)
-            //{
-            //    GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * maxVelocity;
-            //}
-
-            //GetComponent<Rigidbody>().AddForce(getFlockVector() * 10f, ForceMode.Acceleration);
-        }
-
     }
 
     private Flocker findLeader()
@@ -212,23 +196,28 @@ public class Flocker : Enemy
 
     public void decideNextMove()
     {
-        state = EnemyState.Seeking;
+        //if (UnityEngine.Random.Range(0, 2) == 0)
+        //    seek();
+        //else
+        //    wander();
+
         seek();
     }
 
     public void seek()
     {
+        state = EnemyState.Seeking;
         Vector3 target = new Vector3(UnityEngine.Random.Range(-seekRange, seekRange), 0f, UnityEngine.Random.Range(-seekRange, seekRange));
-        currAction = new Movement(gameObject, transform.position + target, speed, maxVelocity, rotationSpeed);
+        GetComponent<SteeringController>().addDestination(transform.position + target);
     }
 
     public void wander()
     {
+        state = EnemyState.Wandering;
         for (int i = 0; i < UnityEngine.Random.Range(2, 10); ++i)
-        //for (int i = 0; i < 3; ++i)
         {
             Vector3 target = new Vector3(UnityEngine.Random.Range(-wanderRange, wanderRange), 0f, UnityEngine.Random.Range(-wanderRange, wanderRange));
-            currAction = new Movement(gameObject, transform.position + target, speed, maxVelocity, rotationSpeed);
+            GetComponent<SteeringController>().addDestination(transform.position + target);
         }
     }
     public bool getLeaderStatus() { return isLeader; }
@@ -265,7 +254,6 @@ public class Resource: MonoBehaviour, Selectable
 
     void Update()
     {
-        Debug.Log("update tree");
         updateSFInfo();
         if (remaining <= 0)
         {
