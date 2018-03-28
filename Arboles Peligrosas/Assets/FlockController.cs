@@ -25,9 +25,9 @@ public class FlockController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 flock = new Vector3();
-        flock += getAlignmentVector() * 100f;
-        //flock += getCohesionVector();
-        //flock += getSeperationVector() * 1.5f;
+        //flock += getAlignmentVector() * 100f;
+        flock += getCohesionVector();
+        flock += getSeperationVector() * 1.5f;
 
         rigidBody.AddForce(flock.normalized * actor.getSpeed(), ForceMode.Acceleration);
         if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();

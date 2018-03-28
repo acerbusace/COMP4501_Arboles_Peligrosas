@@ -13,6 +13,8 @@ public class SteeringController : MonoBehaviour {
     private float wanderAngle; // wander angle
     private float wanderAngleChange;
 
+    private float followDistance;
+
     public SteeringController()
     {
         path = new List<Vector3>();
@@ -24,14 +26,15 @@ public class SteeringController : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody>();
         actor = GetComponent<Actor>();
         
-        pathRadius = 5f;
+        pathRadius = 10f;
         wanderRadius = 3f;
         wanderAngle = 10f;
 
         wanderDistance = 1f;
         wanderRadius = 0.5f;
         wanderAngle = 0f;
-        wanderAngleChange = 5f;
+        wanderAngleChange = 10f;
+        followDistance = 5f;
     }
 	
 	// Update is called once per frame
@@ -47,13 +50,17 @@ public class SteeringController : MonoBehaviour {
             //force += getObstacleVector() * 1.4f;
             if (GetComponent<Flocker>().getLeaderStatus())
             {
-                Debug.Log("getting seek vector: " + getSeekVector(path[0]));
+                Debug.Log("only leader: " + GetInstanceID());
                 force += getSeekVector(path[0]);
-                //force += getWanderVector();
+                force += getWanderVector();
+            } else {
+                Debug.Log("only follower: " + GetInstanceID());
+                Flocker leader = GetComponent<Flocker>().getLeader();
+                force += followLeader(leader);
             }
-                
-            //rigidBody.AddForce(force * actor.getSpeed(), ForceMode.Acceleration);
-            rigidBody.AddForce(force, ForceMode.Acceleration);
+
+            rigidBody.AddForce(force * actor.getSpeed(), ForceMode.Acceleration);
+            //rigidBody.AddForce(force, ForceMode.Acceleration);
 
             if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
         } else
@@ -64,9 +71,14 @@ public class SteeringController : MonoBehaviour {
 
     Vector3 getSeekVector(Vector3 target)
     {
-        Vector3 velocityToTarget = (target - transform.position).normalized * actor.getMaxVelocity();
-        Vector3 seek = velocityToTarget - rigidBody.velocity;
-        return seek;
+        // results in to rigid of a turn (probably due to drag and gravity)
+        //Vector3 velocityToTarget = (target - transform.position).normalized * actor.getMaxVelocity();
+        //Vector3 seek = velocityToTarget - rigidBody.velocity.normalized;
+        //return seek;
+
+        // provides more for a smoother turning
+        Vector3 seek = target - rigidBody.position;
+        return seek.normalized;
     }
 
     Vector3 getObstacleVector()
@@ -107,12 +119,18 @@ public class SteeringController : MonoBehaviour {
 
         Vector3 wander = circleCenter + displacement;
         return wander;
+    }
 
-        //Vector3 circleCenter = transform.forward.normalized * 
-        //Vector3 randomDisplacement = Quaternion.Euler(0f, Random.Range(-wanderAngle, wanderAngle), 0f) * (transform.forward.normalized * Random.Range(5f, 20f));
-        //Vector3 direction = randomDisplacement - circleCenter;
+    Vector3 followLeader(Flocker leader) {
+        Vector3 follow = new Vector3();
 
-        //return (direction.normalized + previousWander).normalized;
+        if (leader != null) {
+            Vector3 behind = -leader.transform.forward.normalized * followDistance;
+            behind += leader.transform.position;
+            follow += behind - transform.position;
+        }
+
+        return follow.normalized;
     }
 
     public void addDestination(Vector3 dest)

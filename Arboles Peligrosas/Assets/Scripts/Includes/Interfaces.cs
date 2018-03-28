@@ -166,7 +166,7 @@ public class Flocker : Enemy
         {
             if (GetComponent<SteeringController>().getPath().Count == 0)
             {
-                Debug.Log("deciding next move");
+                //Debug.Log("deciding next move");
                 //decideNextMove();
             }
         }
@@ -219,6 +219,7 @@ public class Flocker : Enemy
         }
     }
     public bool getLeaderStatus() { return isLeader; }
+    public Flocker getLeader() { return leader; }
 
     
 }
