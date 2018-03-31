@@ -43,15 +43,17 @@ public class HelperFunctions {
     {
         Vector3 destination = new Vector3();
         destination = hit.point;
+
         if (go != null)
         {
-            if (go.GetComponent<Collider>() == null)
-                destination.y = go.GetComponent<Renderer>().bounds.size.y / 2;
-            else
+            if (go.GetComponent<Collider>() != null)
                 destination.y = go.GetComponent<Collider>().bounds.size.y / 2; //terrain.y @ destination.x & destination.z + playerSize.y/2
+            else if (go.GetComponent<Renderer>() != null)
+                destination.y = go.GetComponent<Renderer>().bounds.size.y / 2;
+            return destination;
         }
-        else
-            destination.y = 0f;
+
+        destination.y = 0f;
         return destination;
     }
 

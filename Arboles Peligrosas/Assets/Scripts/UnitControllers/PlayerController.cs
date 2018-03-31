@@ -9,14 +9,12 @@ public class PlayerController : Friendly
     void Start()
     {
         unitName = "Player";
-        unitHealth = 100f;
+        unitHealth = 200f;
         speed = 100f;
         gatherSpeed = 1f;
         gatherDistance = 5f;
         rotationSpeed = 15f;
         maxVelocity = 10f;
-
-        sfInfo.info = new Dictionary<string, string>();
 
         anim = GetComponent<Animator>();
     }
@@ -45,8 +43,7 @@ public class PlayerController : Friendly
 
     public override void updateSFInfo()
     {
-        HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
-        HelperFunctions.addToDict(sfInfo.info, "Health", ((int)unitHealth).ToString());
+        base.updateSFInfo();
         HelperFunctions.addToDict(sfInfo.info, "Speed", ((int)speed).ToString());
     }
 }

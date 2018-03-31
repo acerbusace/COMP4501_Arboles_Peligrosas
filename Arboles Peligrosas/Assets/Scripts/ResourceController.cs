@@ -78,40 +78,32 @@ public class ResourceController : MonoBehaviour {
         return stone += amount;
     }
 
-    public void useWood(float amount)
-    {
-        wood -= amount;
-    }
-
-    public void useStone(float amount)
-    {
-        stone -= amount;
-    }
-
-    public bool bulidingRobot()
+    public bool buildingRobot()
     {
         if (wood > 10f)
-        {
-            wood -= 10f;
-            return true;
-        }
-        return false;
-    }
-    public bool buildingWall()
-    {
-        if (stone > 5f)
         {
             stone -= 5f;
             return true;
         }
         return false;
     }
+
+    public bool buildingWall()
+    {
+        if (stone > 5f)
+        {
+            wood -= 8f;
+            return true;
+        }
+        return false;
+    }
+
     public bool buildingTurret()
     {
         if (wood > 10f && stone > 10f)
         {
             wood -= 10f;
-            stone -= 10f;
+            stone -= 7f;
             return true;
         }
         return false;

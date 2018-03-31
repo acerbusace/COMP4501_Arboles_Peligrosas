@@ -8,12 +8,15 @@ public class UI_BuildController : MonoBehaviour {
     private GameObject canvas;
     public GameObject canvasPrefab;
     public GameObject buttonPrefab;
-    public GameObject dummyPrefab;
-    private GameObject dummyObject;
+    private GameObject buildUnit;
     public GameObject robotPrefab;
     public GameObject wallPrefab;
     public GameObject turretPrefab;
+    public GameObject buildRobotPrefab;
+    public GameObject buildWallPrefab;
+    public GameObject buildTurretPrefab;
     private GameObject currentBuildable;
+    public ResourceController resourceController;
 
     private List<GameObject> buttons;
 
@@ -89,27 +92,33 @@ public class UI_BuildController : MonoBehaviour {
                 v = transform.position = HelperFunctions.hitToVector(hit);
             v.y += 2; // cause cool
             
-            Instantiate(currentBuildable, v, Quaternion.identity);
+            Instantiate(currentBuildable, v, buildUnit.transform.rotation);
             currentBuildable = null;
-            Destroy(dummyObject);
+            Destroy(buildUnit);
         }
     }
 
     void buildRobot()
     {
-        dummyObject = Instantiate(dummyPrefab);
-        currentBuildable = robotPrefab;
+        if (resourceController.buildingRobot()) {
+            buildUnit = Instantiate(buildRobotPrefab);
+            currentBuildable = robotPrefab;
+        }
     }
 
     void buildWall()
     {
-        dummyObject = Instantiate(dummyPrefab);
-        currentBuildable = wallPrefab;
+        if (resourceController.buildingWall()) {
+            buildUnit = Instantiate(buildWallPrefab);
+            currentBuildable = wallPrefab;
+        }
     }
 
     void buildTurret()
     {
-        dummyObject = Instantiate(dummyPrefab);
-        currentBuildable = turretPrefab;
+        if (resourceController.buildingWall()) {
+            buildUnit = Instantiate(buildTurretPrefab);
+            currentBuildable = turretPrefab;
+        }
     }
 }

@@ -16,19 +16,26 @@ public enum Status
     FINISHED
 }
 
-public abstract class Actor : MonoBehaviour, Selectable
+public class Unit : MonoBehaviour, Selectable
 {
     protected UI_SelectedFrame sfInfo;
-
     protected string unitName;
     protected float unitHealth;
-    protected float speed;
-    protected float maxVelocity;
-    protected float gatherSpeed;
-    protected float gatherDistance;
-    protected float rotationSpeed;
 
-    public Actor() { }
+    public Unit() {
+        unitName = "Please name this unit";
+        unitHealth = 100f;
+
+        sfInfo.info = new Dictionary<string, string>();
+    }
+
+    public virtual void update()
+    {
+        updateSFInfo();
+
+        if (unitHealth <= 0)
+            Destroy(gameObject);
+    }
 
     void Update()
     {
@@ -46,20 +53,31 @@ public abstract class Actor : MonoBehaviour, Selectable
         return false;
     }
 
-    public virtual void update()
-    {
-        updateSFInfo();
+    public UI_SelectedFrame getSFInfo() { return sfInfo; }
 
-        if (unitHealth <= 0)
-            Destroy(gameObject);
+    public virtual void updateSFInfo() {
+        HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
+        HelperFunctions.addToDict(sfInfo.info, "Health", ((int)unitHealth).ToString());
+    }
+}
+
+public abstract class Actor : Unit
+{
+    protected float speed;
+    protected float maxVelocity;
+    protected float gatherSpeed;
+    protected float gatherDistance;
+    protected float rotationSpeed;
+
+    public Actor() { }
+
+
+    public override void update()
+    {
+        base.update();
 
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
-
-    
-
-    public UI_SelectedFrame getSFInfo() { return sfInfo; }
-    public virtual void updateSFInfo() {  }
 
     public float getMaxVelocity()  {  return maxVelocity; }
     public float getSpeed() { return speed; }
@@ -329,39 +347,6 @@ public class Build : Action
         return Vector3.zero;
     }
 }
-
-class Lerp
-{
-    private Vector3 start, end;
-    private float distance, timeToEnd, currTime;
-
-    public Lerp(Vector3 s, Vector3 e, float speed)
-    {
-        start = s;
-        end = e;
-        distance = Vector3.Distance(s, e);
-        timeToEnd = distance / speed;
-        currTime = 0;
-    }
-
-    public Vector3 getPosition()
-    {
-        currTime += Time.deltaTime;
-
-        if (currTime >= timeToEnd)
-            currTime = timeToEnd;
-
-        Vector3 output = Vector3.Lerp(start, end, currTime / timeToEnd);
-
-        if (float.IsNaN(output.x) || float.IsNaN(output.y) || float.IsNaN(output.z)) return start;
-
-        return output;
-    }
-}
-
-
-
-
 
 
 

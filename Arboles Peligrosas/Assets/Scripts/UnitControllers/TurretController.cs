@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TurretController : MonoBehaviour, Selectable {
+public class TurretController : Unit {
 
-    private UI_SelectedFrame sfInfo;
-
-    private string unitName;
     private Transform head;
     public GameObject bulletPrefab;
     private float bulletSpawnOffsetZ;
@@ -23,8 +20,8 @@ public class TurretController : MonoBehaviour, Selectable {
 
     // Use this for initialization
     void Start () {
-        sfInfo.info = new Dictionary<string, string>();
         unitName = "Turret";
+        unitHealth = 150f;
 
         head = transform.Find("Head");
         Collider c = GetComponent<Collider>();
@@ -39,9 +36,8 @@ public class TurretController : MonoBehaviour, Selectable {
         rotationSpeed = 2f;
     }
 	
-	// Update is called once per frame
-	void Update () {
-        updateSFInfo();
+    public override void update() {
+        base.update();
 
         if (currTarget == null || Vector3.Distance(transform.position, currTarget.transform.position) > detectionRadius)
             currTarget = getClosestTarget();
@@ -106,13 +102,5 @@ public class TurretController : MonoBehaviour, Selectable {
         }
 
         return returnValue;
-    }
-
-    public void setDestination(Ray ray) { }
-
-    public UI_SelectedFrame getSFInfo() { return sfInfo; }
-
-    public void updateSFInfo() {
-        HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
     }
 }

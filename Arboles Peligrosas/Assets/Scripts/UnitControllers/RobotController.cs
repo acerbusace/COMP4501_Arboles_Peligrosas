@@ -8,7 +8,7 @@ public class RobotController : Friendly
 	void Start ()
     {
         unitName = "Robot";
-        unitHealth = 100f;
+        unitHealth = 75f;
         speed = 75f;
         gatherSpeed = 0.5f;
         gatherDistance = 5f;
@@ -19,8 +19,7 @@ public class RobotController : Friendly
 	}
     public override void updateSFInfo()
     {
-        HelperFunctions.addToDict(sfInfo.info, "Unit", unitName);
-        HelperFunctions.addToDict(sfInfo.info, "Health", ((int)unitHealth).ToString());
+        base.updateSFInfo();
         HelperFunctions.addToDict(sfInfo.info, "Speed", ((int)speed).ToString());
     }
 }
