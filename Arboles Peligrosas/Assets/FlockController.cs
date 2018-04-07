@@ -25,15 +25,15 @@ public class FlockController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 flock = new Vector3();
-        //flock += getAlignmentVector();
+        flock += getAlignmentVector() / 10f;
         flock += getCohesionVector();
-        flock += getSeperationVector() * 1.1f;
+        flock += getSeperationVector() * 1.25f;
 
-        if (flock.magnitude > 0.25f) {
-            //rigidBody.AddForce(flock.normalized  * 15f, ForceMode.Acceleration);
-            rigidBody.AddForce(flock.normalized  * actor.getSpeed() / 2, ForceMode.Acceleration);
-            if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
-        }
+        Debug.Log(GetInstanceID() + ": " + flock + " -> " + flock.magnitude);
+
+        //rigidBody.AddForce(flock.normalized  * 15f, ForceMode.Acceleration);
+        rigidBody.AddForce(flock.normalized * actor.getSpeed() / 2f, ForceMode.Acceleration);
+        if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
     }
 
     public Vector3 getAlignmentVector()

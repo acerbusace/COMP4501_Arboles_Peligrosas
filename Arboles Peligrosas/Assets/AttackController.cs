@@ -15,7 +15,6 @@ public class AttackController : MonoBehaviour {
 	void Start () {
         attackingTag = "Friendly";
         attackingRadius = GetComponent<Collider>().bounds.extents.magnitude + 1f;
-        Debug.Log("attacking radius: " + attackingRadius);
         damage = 25f;
         attackCoolDown = 2f;
         currentAttackCoolDown = 0f;

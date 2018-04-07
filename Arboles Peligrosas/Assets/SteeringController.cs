@@ -59,7 +59,7 @@ public class SteeringController : MonoBehaviour {
                 force += followLeader(leader);
             }
 
-            rigidBody.AddForce(force * actor.getSpeed(), ForceMode.Acceleration);
+            rigidBody.AddForce(force.normalized * actor.getSpeed(), ForceMode.Acceleration);
             //rigidBody.AddForce(force, ForceMode.Acceleration);
 
             if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
@@ -125,9 +125,11 @@ public class SteeringController : MonoBehaviour {
         Vector3 follow = new Vector3();
 
         if (leader != null) {
-            Vector3 behind = -leader.transform.forward.normalized * followDistance;
-            behind += leader.transform.position;
-            follow += behind - transform.position;
+            if (Vector3.Distance(leader.transform.position, transform.position) > followDistance * 2f) {
+                Vector3 behind = -leader.transform.forward.normalized * followDistance;
+                behind += leader.transform.position;
+                follow += behind - transform.position;
+            }
         }
 
         return follow.normalized;
