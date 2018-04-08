@@ -9,8 +9,8 @@ public class ResourceController : MonoBehaviour {
     private float stone;
 
     private List<GameObject> resources;
-    public GameObject treePrefab;
-    public GameObject stonePrefab;
+    public List<GameObject> treePrefab;
+    public List<GameObject> stonePrefab;
 
     // Use this for initialization
     void Start()
@@ -27,8 +27,9 @@ public class ResourceController : MonoBehaviour {
     {
         for (int i = 0; i < amount; ++i)
         {
+            int random = (int) UnityEngine.Random.Range(0, treePrefab.Count - 1);
             GameObject tree = Instantiate(
-                treePrefab, 
+                treePrefab[random], 
                 new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
                 Quaternion.identity
             );
@@ -47,12 +48,18 @@ public class ResourceController : MonoBehaviour {
     {
         for (int i = 0; i < amount; ++i)
         {
+            int random = (int)UnityEngine.Random.Range(0, stonePrefab.Count - 1);
             GameObject stone = Instantiate(
-                stonePrefab,
+                stonePrefab[random],
                 new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
                 Quaternion.identity
             );
-            stone.AddComponent<Stone>();
+            Stone stoneComp = stone.AddComponent<Stone>();
+
+            float remaining = UnityEngine.Random.Range(5f, 15f);
+            stoneComp.setRemaining(remaining);
+            float scale = 100f + (remaining / 15f) * 300f;
+            stone.transform.localScale = new Vector3(scale, scale, scale);
 
             resources.Add(stone);
         }
