@@ -6,15 +6,25 @@ public class PlayerController : Friendly
 {
     Animator anim;
 
+    private float attackingRadius;
+    private float damage;
+    private float attackCoolDown;
+    private float attackingFov;
+
     void Start()
     {
         unitName = "Player";
         unitHealth = 200f;
         speed = 100f;
         gatherSpeed = 1f;
-        gatherDistance = 5f;
+        gatherDistance = 7.5f;
         rotationSpeed = 15f;
         maxVelocity = 10f;
+
+        attackingRadius = GetComponent<Collider>().bounds.extents.magnitude + 1f;
+        damage = 35f;
+        attackCoolDown = 1.5f;
+        attackingFov = 45f;
 
         anim = GetComponent<Animator>();
     }
@@ -38,6 +48,17 @@ public class PlayerController : Friendly
             anim.SetBool("minning", action);
         }
         
+    }
+
+    public void queueAttack(GameObject attacking)
+    {
+        actions.Add(new PlayerAttackController(gameObject, attacking, speed, maxVelocity, rotationSpeed, attackingRadius, damage, attackCoolDown, attackingFov));
+    }
+
+    public void attack(GameObject attacking)
+    {
+        clear();
+        queueAttack(attacking);
     }
 
 

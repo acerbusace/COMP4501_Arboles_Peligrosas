@@ -31,7 +31,7 @@ public class AttackController : MonoBehaviour {
             {
                 if (c.gameObject != gameObject) {
                     Vector3 targetDir = c.gameObject.transform.position - transform.position;
-                    Debug.Log("calling update: " + Vector3.Angle(transform.forward, targetDir));
+                    //Debug.Log("calling update: " + Vector3.Angle(transform.forward, targetDir));
                     
 
                     if (Vector3.Angle(transform.forward, targetDir) < attackingFov) {

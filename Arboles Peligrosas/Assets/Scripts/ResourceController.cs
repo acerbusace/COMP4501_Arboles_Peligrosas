@@ -37,8 +37,8 @@ public class ResourceController : MonoBehaviour {
 
             float remaining = UnityEngine.Random.Range(5f, 20f);
             treeComp.setRemaining(remaining);
-            float scale = 1f + (remaining / 20f) * 3f;
-            tree.transform.localScale = new Vector3(scale, scale, scale);
+            float scale = ((remaining - 5f) / 15f) * 3f;
+            tree.transform.localScale = tree.transform.localScale + new Vector3(scale, scale, scale);
 
             resources.Add(tree);
         }
@@ -58,8 +58,8 @@ public class ResourceController : MonoBehaviour {
 
             float remaining = UnityEngine.Random.Range(5f, 15f);
             stoneComp.setRemaining(remaining);
-            float scale = 100f + (remaining / 15f) * 300f;
-            stone.transform.localScale = new Vector3(scale, scale, scale);
+            float scale = ((remaining - 5f) / 10f) * 100f;
+            stone.transform.localScale = stone.transform.localScale + new Vector3(scale, scale, scale);
 
             resources.Add(stone);
         }

@@ -53,6 +53,12 @@ public class Unit : MonoBehaviour, Selectable
         return false;
     }
 
+    public bool isDead()
+    {
+        if (unitHealth <= 0) return true;
+        return false;
+    }
+
     public UI_SelectedFrame getSFInfo() { return sfInfo; }
 
     public virtual void updateSFInfo() {
@@ -151,8 +157,8 @@ public class Friendly : Actor
 
     public virtual void handleCollision(Collision col)
     {
-        if (!HelperFunctions.containsTag("Ground", col.gameObject.tag))
-            clear();
+        //if (!HelperFunctions.containsTag("Ground", col.gameObject.tag) || !HelperFunctions.containsTag("Enemy", col.gameObject.tag))
+        //    clear();
     }
 
     public Action getAction() { if (actions.Count > 0) return actions[0]; else return null; }

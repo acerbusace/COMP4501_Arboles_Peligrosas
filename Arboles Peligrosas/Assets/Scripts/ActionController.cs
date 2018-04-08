@@ -51,6 +51,26 @@ public class ActionController : MonoBehaviour {
                         }
                     }
                 }
+                else if (HelperFunctions.containsTag("Enemy", hit.transform.gameObject.tag)) 
+                {
+                    if (shiftModifier)
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            if (HelperFunctions.containsTag("Attacker", sf.gameObject.tag))
+                                sf.GetComponent<PlayerController>().queueAttack(hit.transform.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        foreach (GameObject sf in selectedFrames)
+                        {
+                            Debug.Log("attacking method calling");
+                            if (HelperFunctions.containsTag("Attacker", sf.gameObject.tag))
+                                sf.GetComponent<PlayerController>().attack(hit.transform.gameObject);
+                        }
+                    }
+                }
                 else
                 {
                     if (shiftModifier)

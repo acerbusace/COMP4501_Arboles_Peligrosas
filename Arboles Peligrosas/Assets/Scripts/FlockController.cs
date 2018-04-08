@@ -29,7 +29,7 @@ public class FlockController : MonoBehaviour {
         flock += getCohesionVector();
         flock += getSeperationVector() * 1.25f;
 
-        Debug.Log(GetInstanceID() + ": " + flock + " -> " + flock.magnitude);
+        //Debug.Log(GetInstanceID() + ": " + flock + " -> " + flock.magnitude);
 
         //rigidBody.AddForce(flock.normalized  * 15f, ForceMode.Acceleration);
         rigidBody.AddForce(flock.normalized * actor.getSpeed() / 2f, ForceMode.Acceleration);
