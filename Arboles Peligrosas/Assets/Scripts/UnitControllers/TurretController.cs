@@ -32,7 +32,7 @@ public class TurretController : Unit {
         fireRate = 0.5f;
         currFireRate = fireRate;
 
-        detectionRadius = 10f;
+        detectionRadius = 25f;
         rotationSpeed = 2f;
     }
 	

@@ -24,6 +24,11 @@ public class CameraController : MonoBehaviour
 
     public SelectController selectController;
 
+    void Start()
+    {
+        transform.position = new Vector3(transform.position.x, maxDist, transform.position.z);
+    }
+
     void Update()
     {
         // Spacebar is Pressed

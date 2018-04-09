@@ -20,10 +20,10 @@ public class TigerController : Flocker {
         anim = GetComponent<Animator>();
         steeringController = GetComponent<SteeringController>();
         //temporary (no AI yet)
-        steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        steeringController.addDestination(new Vector3(200f, 0f, 0));
+        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
+        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
+        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
+        //steeringController.addDestination(new Vector3(200f, 0f, 0));
 
         agent = GetComponent<NavMeshAgent>();
     }
