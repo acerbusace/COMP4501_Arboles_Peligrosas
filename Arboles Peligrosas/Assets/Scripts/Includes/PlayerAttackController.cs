@@ -7,7 +7,7 @@ public class PlayerAttackController : Action {
     GameObject controllingGb;
     NavMeshAgent controllingAgent;
     GameObject attackingGb;
-
+    Animator anim;
     float rotationSpeed;
 
     float attackingRadius;
@@ -38,10 +38,16 @@ public class PlayerAttackController : Action {
         finished = false;
     }
 
+    public override void cleanup()
+    {
+        anim.SetBool("attack", false);
+    }
+
     public override void start()
     {
-        Vector3 dir = attackingGb.transform.position - controllingGb.transform.position;
+        
 
+        Vector3 dir = attackingGb.transform.position - controllingGb.transform.position;
         if (dir.magnitude < attackingRadius) {
             controllingAgent.ResetPath();
 
@@ -61,11 +67,17 @@ public class PlayerAttackController : Action {
 
     public override void update()
     {
-        if (!finished) start();
+        anim = controllingGb.GetComponent<Animator>();
+        if (!finished)
+        {
+            anim.SetBool("attack", true);
+            start();
+        }
 
         if (attackingGb.GetComponent<Unit>().isDead())
         {
             finished = true;
+            anim.SetBool("attack", false);
         }
     }
 

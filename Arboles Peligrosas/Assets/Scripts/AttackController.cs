@@ -11,6 +11,8 @@ public class AttackController : MonoBehaviour {
     private float currentAttackCoolDown;
     private float attackingFov;
 
+    Animator anim;
+
 	// Use this for initialization
 	void Start () {
         attackingTag = "Friendly";
@@ -19,6 +21,8 @@ public class AttackController : MonoBehaviour {
         attackCoolDown = 2f;
         currentAttackCoolDown = 0f;
         attackingFov = 45f;
+
+        anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -32,14 +36,18 @@ public class AttackController : MonoBehaviour {
                 if (c.gameObject != gameObject) {
                     Vector3 targetDir = c.gameObject.transform.position - transform.position;
                     //Debug.Log("calling update: " + Vector3.Angle(transform.forward, targetDir));
-                    
 
-                    if (Vector3.Angle(transform.forward, targetDir) < attackingFov) {
-                        if (currentAttackCoolDown < 0f) {
+
+                    if (Vector3.Angle(transform.forward, targetDir) < attackingFov)
+                    {
+                        anim.SetBool("attack", true);
+                        if (currentAttackCoolDown < 0f)
+                        {
                             c.GetComponent<Unit>().takeDamage(damage);
                             currentAttackCoolDown = attackCoolDown;
                         }
                     }
+                    else anim.SetBool("attack", false);
                 }
             }
         }

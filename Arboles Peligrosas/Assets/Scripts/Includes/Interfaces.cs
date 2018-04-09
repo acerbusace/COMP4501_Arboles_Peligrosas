@@ -173,6 +173,7 @@ public class Friendly : Actor
 
     public void clear()
     {
+        foreach (Action a in actions) a.cleanup();
         actions.Clear();
     }
 
@@ -355,6 +356,7 @@ public abstract class Action
     public abstract bool isFinished();
     public abstract void start();
     public abstract Vector3 getDestination();
+    public virtual void cleanup() { }
 }
 
 public class Build : Action
