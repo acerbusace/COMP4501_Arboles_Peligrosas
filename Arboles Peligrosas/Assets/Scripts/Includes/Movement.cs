@@ -2,27 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Movement : Action
 {
+    NavMeshAgent agent;
     private Vector3 destination;
-    GameObject gameObject;
-    Rigidbody rigidbody;
     float speed;
     float maxVelocity;
     float rotationSpeed;
 
-    //Flock flock;
-    //Seek seek;
-    //Wander wander;
-
     bool first;
     bool finished;
 
-    public Movement(GameObject gb, Vector3 dest, float s, float mS, float rS)
+    public Movement(NavMeshAgent a, Vector3 dest, float s, float mS, float rS)
     {
-        gameObject = gb;
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        agent = a;
         destination = dest;
         speed = s;
         maxVelocity = mS;
@@ -34,24 +29,15 @@ public class Movement : Action
 
     public override void start()
     {
-        Vector3 dir = destination - rigidbody.position;
-
-        if (HelperFunctions.rotateTowardsVelocity(rigidbody.gameObject, rotationSpeed, dir))
-        {
-            rigidbody.AddForce(dir.normalized * speed, ForceMode.Acceleration);
-            
-            if (rigidbody.velocity.magnitude > maxVelocity) rigidbody.velocity = rigidbody.velocity.normalized * maxVelocity;
-        } else {
-            rigidbody.velocity = Vector3.zero;
-        }
+        agent.SetDestination(destination);
+        first = false;
     }
 
     public override void update()
     {
-        //Debug.Log("this should be getting called");
-        if(!finished) start();
+        if(first) start();
 
-        if(Vector3.Distance(rigidbody.position, destination) < 1f) {
+        if(Vector3.Distance(agent.gameObject.transform.position, destination) < 1f) {
             finished = true;
         }
     }
@@ -60,8 +46,6 @@ public class Movement : Action
     {
         return finished;
     }
-
-    
 
     public override Vector3 getDestination() { return destination; }
 }

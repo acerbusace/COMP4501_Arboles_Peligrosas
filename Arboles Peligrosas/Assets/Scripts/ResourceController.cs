@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class ResourceController : MonoBehaviour {
@@ -11,6 +12,7 @@ public class ResourceController : MonoBehaviour {
     private List<GameObject> resources;
     public List<GameObject> treePrefab;
     public List<GameObject> stonePrefab;
+    public Transform level_resources;
 
     // Use this for initialization
     void Start()
@@ -21,6 +23,12 @@ public class ResourceController : MonoBehaviour {
         resources = new List<GameObject>();
         CreateTreeResource(40);
         CreateStoneResource(25);
+
+        NavMeshSurface navMeshSurface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
+        if (navMeshSurface != null)
+            navMeshSurface.BuildNavMesh();
+        else
+            Debug.Log("NavMesh is null; cannot bake nav mesh");
     }
 
     void CreateTreeResource(int amount)
@@ -29,10 +37,10 @@ public class ResourceController : MonoBehaviour {
         {
             int random = (int) UnityEngine.Random.Range(0, treePrefab.Count - 1);
             GameObject tree = Instantiate(
-                treePrefab[random], 
-                new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
-                Quaternion.identity
+                treePrefab[random],
+                level_resources
             );
+            tree.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
             Tree treeComp = tree.AddComponent<Tree>();
 
             float remaining = UnityEngine.Random.Range(5f, 20f);
@@ -51,9 +59,9 @@ public class ResourceController : MonoBehaviour {
             int random = (int)UnityEngine.Random.Range(0, stonePrefab.Count - 1);
             GameObject stone = Instantiate(
                 stonePrefab[random],
-                new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f)), 
-                Quaternion.identity
+                level_resources
             );
+            stone.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
             Stone stoneComp = stone.AddComponent<Stone>();
 
             float remaining = UnityEngine.Random.Range(5f, 15f);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class UI_BuildController : MonoBehaviour {
 
@@ -90,11 +91,17 @@ public class UI_BuildController : MonoBehaviour {
             Vector3 v = new Vector3();
             if (Physics.Raycast(ray, out hit))
                 v = transform.position = HelperFunctions.hitToVector(hit);
-            v.y += 2; // cause cool
+            v.y = 2.5f; // cause cool
             
             Instantiate(currentBuildable, v, buildUnit.transform.rotation);
             currentBuildable = null;
             Destroy(buildUnit);
+
+            NavMeshSurface navMeshSurface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
+            if (navMeshSurface != null)
+                navMeshSurface.BuildNavMesh();
+            else
+                Debug.Log("NavMesh is null; cannot bake nav mesh");
         }
     }
 

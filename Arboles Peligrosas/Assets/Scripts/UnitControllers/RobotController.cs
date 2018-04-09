@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RobotController : Friendly
 {
@@ -16,7 +17,9 @@ public class RobotController : Friendly
         maxVelocity = 7.5f;
 
         sfInfo.info = new Dictionary<string, string>();
-	}
+
+        agent = GetComponent<NavMeshAgent>();
+    }
     public override void updateSFInfo()
     {
         base.updateSFInfo();

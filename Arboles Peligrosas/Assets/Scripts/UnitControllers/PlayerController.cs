@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : Friendly
 {
@@ -27,12 +28,13 @@ public class PlayerController : Friendly
         attackingFov = 45f;
 
         anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public override void update()
     {
         base.update();
-        float move = GetComponent<Rigidbody>().velocity.magnitude;
+        float move = GetComponent<NavMeshAgent>().velocity.magnitude;
         bool action;
         anim.SetFloat("speed", move);
         if (actions.Count > 0)

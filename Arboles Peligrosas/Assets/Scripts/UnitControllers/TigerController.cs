@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TigerController : Flocker {
 
@@ -26,28 +27,14 @@ public class TigerController : Flocker {
         steeringController.addDestination(new Vector3(100f, 0f, -50f));
         steeringController.addDestination(new Vector3(150f, 0f, 50f));
         steeringController.addDestination(new Vector3(200f, 0f, 0));
-        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        //steeringController.addDestination(new Vector3(200f, 0f, 0));
-        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        //steeringController.addDestination(new Vector3(200f, 0f, 0));
-        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        //steeringController.addDestination(new Vector3(200f, 0f, 0));
-        //steeringController.addDestination(new Vector3(50f, 0f, 0f));
-        //steeringController.addDestination(new Vector3(100f, 0f, -50f));
-        //steeringController.addDestination(new Vector3(150f, 0f, 50f));
-        //steeringController.addDestination(new Vector3(200f, 0f, 0));
+
+        agent = GetComponent<NavMeshAgent>();
     }
 
     public override void update()
     {
         base.update();
-        float move = GetComponent<Rigidbody>().velocity.magnitude;
+        float move = agent.velocity.magnitude;
         anim.SetFloat("speed", move);
     }
 

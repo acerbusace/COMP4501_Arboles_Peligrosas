@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public interface Selectable
 {
@@ -71,9 +72,9 @@ public abstract class Actor : Unit
 {
     protected float speed;
     protected float maxVelocity;
-    protected float gatherSpeed;
-    protected float gatherDistance;
     protected float rotationSpeed;
+
+    protected NavMeshAgent agent;
 
     public Actor() { }
 
@@ -82,7 +83,9 @@ public abstract class Actor : Unit
     {
         base.update();
 
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.angularVelocity = Vector3.zero;
     }
 
     public float getMaxVelocity()  {  return maxVelocity; }
@@ -92,6 +95,9 @@ public abstract class Actor : Unit
 public class Friendly : Actor
 {
     protected List<Action> actions;
+
+    protected float gatherSpeed;
+    protected float gatherDistance;
     public Friendly()
     {
         actions = new List<Action>();
@@ -115,7 +121,7 @@ public class Friendly : Actor
 
     public virtual void queueMove(Vector3 destination)
     {
-        actions.Add(new Movement(gameObject, destination, speed, maxVelocity, rotationSpeed));
+        actions.Add(new Movement(agent, destination, speed, maxVelocity, rotationSpeed));
     }
     public void queueMove(RaycastHit hit)
     {
