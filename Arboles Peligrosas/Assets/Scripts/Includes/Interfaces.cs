@@ -211,15 +211,6 @@ public class Flocker : Enemy
         leader = findLeader();
         if (leader == null) isLeader = true;
         else isLeader = false;
-
-        if (isLeader)
-        {
-            if (GetComponent<SteeringController>().getPath().Count == 0)
-            {
-                //Debug.Log("deciding next move");
-                //decideNextMove();
-            }
-        }
     }
 
     private Flocker findLeader()
@@ -239,6 +230,13 @@ public class Flocker : Enemy
             }
         }
         return null;
+    }
+
+    public Vector3 getLeaderDestination()
+    {
+        if (leader == null) return Vector3.zero;
+
+        return leader.GetComponent<NavMeshAgent>().destination;
     }
 
     public void decideNextMove()

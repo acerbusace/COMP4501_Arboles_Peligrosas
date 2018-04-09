@@ -49,10 +49,10 @@ public class SteeringController : MonoBehaviour
             }
         }
 
-        if (GetComponent<Flocker>().getLeaderStatus())
-            agent.stoppingDistance = 0;
-        else
-            agent.stoppingDistance = 1;
+        //if (GetComponent<Flocker>().getLeaderStatus())
+        //    agent.stoppingDistance = 0;
+        //else
+        //    agent.stoppingDistance = 1;
 
 
         //Vector3 force = new Vector3();
@@ -145,12 +145,18 @@ public class SteeringController : MonoBehaviour
     public void setDestination(Vector3 dest)
     {
         path.Clear();
-        agent.ResetPath();
-        addDestination(dest);
+        //agent.ResetPath();
+        //Debug.Log("cleaing path: " + agent.remainingDistance);
+        agent.SetDestination(dest);
     }
 
     public List<Vector3> getPath()
     {
         return path;
+    }
+
+    public bool hasPath()
+    {
+        return agent.hasPath;
     }
 }
