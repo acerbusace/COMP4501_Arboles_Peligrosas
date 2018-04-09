@@ -25,9 +25,7 @@ public class RobotController : Friendly
 
         GameObject closestResource = null;
         if (actions.Count == 0) {
-            Debug.Log("no actions to do...");
             if (gatherStatus != GatherStatus.none) {
-                Debug.Log("gathering set to: " + gatherStatus.ToString());
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, autoGatherRadius);
 
                 foreach (Collider c in hitColliders)

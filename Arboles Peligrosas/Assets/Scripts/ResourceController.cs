@@ -23,7 +23,7 @@ public class ResourceController : MonoBehaviour {
         CreateTreeResource(40);
         CreateStoneResource(25);
 
-        HelperFunctions.bakeNavMeshes();
+        //HelperFunctions.bakeNavMeshes();
     }
 
     void CreateTreeResource(int amount)

@@ -97,7 +97,7 @@ public class UI_BuildController : MonoBehaviour {
             currentBuildable = null;
             Destroy(buildUnit);
 
-            HelperFunctions.bakeNavMeshes();
+            //HelperFunctions.bakeNavMeshes();
         }
     }
 
