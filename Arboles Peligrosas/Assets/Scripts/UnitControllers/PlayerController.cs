@@ -12,6 +12,7 @@ public class PlayerController : Friendly
     private float attackCoolDown;
     private float attackingFov;
     protected float rotationSpeed;
+    private bool reduceSpeed;
 
     void Start()
     {
@@ -25,6 +26,8 @@ public class PlayerController : Friendly
         damage = 35f;
         attackCoolDown = 1.5f;
         attackingFov = 45f;
+
+        reduceSpeed = true;
 
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
@@ -50,7 +53,16 @@ public class PlayerController : Friendly
             action = false;
             anim.SetBool("minning", action);
         }
-        
+
+        if (unitHealth <= 100)
+        {
+            if (reduceSpeed)
+            {
+                agent.speed = agent.speed / 2;
+                agent.acceleration = agent.acceleration / 2;
+                reduceSpeed = false;
+            }
+        }
     }
 
     public void queueAttack(GameObject attacking)

@@ -46,6 +46,7 @@ public class Unit : MonoBehaviour, Selectable
     public bool takeDamage(float damage)
     {
         unitHealth -= damage;
+
         if (unitHealth < 0)
         {
             unitHealth = 0;
