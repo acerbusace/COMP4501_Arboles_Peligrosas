@@ -70,10 +70,6 @@ public class Unit : MonoBehaviour, Selectable
 
 public abstract class Actor : Unit
 {
-    protected float speed;
-    protected float maxVelocity;
-    protected float rotationSpeed;
-
     protected NavMeshAgent agent;
 
     public Actor() { }
@@ -88,12 +84,23 @@ public abstract class Actor : Unit
             rb.angularVelocity = Vector3.zero;
     }
 
-    public float getMaxVelocity()  {  return maxVelocity; }
-    public float getSpeed() { return speed; }
+    public override void updateSFInfo() {
+        base.updateSFInfo();
+        HelperFunctions.addToDict(sfInfo.info, "Speed", ((int)agent.speed).ToString());
+    }
 }
 
 public class Friendly : Actor
 {
+    protected enum GatherStatus
+    {
+        tree,
+        stone,
+        none
+    }
+
+    protected GatherStatus gatherStatus;
+
     protected List<Action> actions;
 
     protected float gatherSpeed;
@@ -101,6 +108,7 @@ public class Friendly : Actor
     public Friendly()
     {
         actions = new List<Action>();
+        gatherStatus = GatherStatus.none;
     }
 
     public override void update()
@@ -121,7 +129,8 @@ public class Friendly : Actor
 
     public virtual void queueMove(Vector3 destination)
     {
-        actions.Add(new Movement(agent, destination, speed, maxVelocity, rotationSpeed));
+        actions.Add(new Movement(agent, destination));
+        gatherStatus = GatherStatus.none;
     }
     public void queueMove(RaycastHit hit)
     {
@@ -134,15 +143,26 @@ public class Friendly : Actor
         queueMove(hit);
     }
 
-    public void queueGather(RaycastHit hit)
+    public void queueGather(GameObject resource)
     {
-        Vector3 destination = HelperFunctions.hitToVector(hit);
+        Vector3 destination = resource.transform.position;
         Vector3 direction = destination - transform.position;
         direction = Vector3.Normalize(direction);
         destination -= direction * 2.5f;
 
         queueMove(destination);
-        actions.Add(new Gather(hit.transform.gameObject, transform.gameObject, gatherSpeed, gatherDistance));
+        actions.Add(new Gather(resource, transform.gameObject, gatherSpeed, gatherDistance));
+
+        if (HelperFunctions.containsTag("Tree", resource.tag)) {
+            gatherStatus = GatherStatus.tree;
+        } else if (HelperFunctions.containsTag("Stone", resource.tag)) {
+            gatherStatus = GatherStatus.stone;
+        }
+    }
+
+    public void queueGather(RaycastHit hit)
+    {
+        queueGather(hit.transform.gameObject);
     }
 
     public void gather(RaycastHit ray)

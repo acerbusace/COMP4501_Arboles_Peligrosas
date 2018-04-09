@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GorillaController : Enemy {
 
@@ -8,9 +9,7 @@ public class GorillaController : Enemy {
 	void Start () {
         unitName = "Gorilla";
         unitHealth = 250f;
-        speed = 75f;
-        
-        rotationSpeed = 4f;
-        maxVelocity = 15f;
+
+        agent = GetComponent<NavMeshAgent>();
     }
 }

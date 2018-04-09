@@ -8,20 +8,14 @@ public class Movement : Action
 {
     NavMeshAgent agent;
     private Vector3 destination;
-    float speed;
-    float maxVelocity;
-    float rotationSpeed;
 
     bool first;
     bool finished;
 
-    public Movement(NavMeshAgent a, Vector3 dest, float s, float mS, float rS)
+    public Movement(NavMeshAgent a, Vector3 dest)
     {
         agent = a;
         destination = dest;
-        speed = s;
-        maxVelocity = mS;
-        rotationSpeed = rS;
 
         first = true;
         finished = false;

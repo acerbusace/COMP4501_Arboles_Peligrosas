@@ -97,11 +97,7 @@ public class UI_BuildController : MonoBehaviour {
             currentBuildable = null;
             Destroy(buildUnit);
 
-            NavMeshSurface navMeshSurface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
-            if (navMeshSurface != null)
-                navMeshSurface.BuildNavMesh();
-            else
-                Debug.Log("NavMesh is null; cannot bake nav mesh");
+            HelperFunctions.bakeNavMeshes();
         }
     }
 

@@ -12,10 +12,7 @@ public class TigerController : Flocker {
 	void Start () {
         unitName = "Tiger";
         unitHealth = 100f;
-        speed = 100f;
         
-        rotationSpeed = 4f;
-        maxVelocity = 15f;
         leaderRadius = 50f;
         seekRange = 100f;
 

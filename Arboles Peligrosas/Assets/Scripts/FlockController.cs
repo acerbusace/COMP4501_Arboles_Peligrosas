@@ -32,8 +32,8 @@ public class FlockController : MonoBehaviour {
         //Debug.Log(GetInstanceID() + ": " + flock + " -> " + flock.magnitude);
 
         //rigidBody.AddForce(flock.normalized  * 15f, ForceMode.Acceleration);
-        rigidBody.AddForce(flock.normalized * actor.getSpeed() / 2f, ForceMode.Acceleration);
-        if (rigidBody.velocity.magnitude > actor.getMaxVelocity()) rigidBody.velocity = rigidBody.velocity.normalized * actor.getMaxVelocity();
+        rigidBody.AddForce(flock.normalized * 100f / 2f, ForceMode.Acceleration);
+        if (rigidBody.velocity.magnitude > 75f) rigidBody.velocity = rigidBody.velocity.normalized * 75f;
     }
 
     public Vector3 getAlignmentVector()

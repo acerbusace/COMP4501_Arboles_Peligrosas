@@ -29,7 +29,7 @@ public class TurretController : Unit {
         bulletSpawnOffsetZ = z + 0.75f;
         bulletSpawnOffsetY = c.bounds.size.y;
 
-        fireRate = 1f;
+        fireRate = 0.5f;
         currFireRate = fireRate;
 
         detectionRadius = 10f;
@@ -102,5 +102,11 @@ public class TurretController : Unit {
         }
 
         return returnValue;
+    }
+
+    public override void updateSFInfo() {
+        base.updateSFInfo();
+        HelperFunctions.addToDict(sfInfo.info, "Detection Radius", detectionRadius.ToString());
+        HelperFunctions.addToDict(sfInfo.info, "Fire Rate", fireRate.ToString());
     }
 }

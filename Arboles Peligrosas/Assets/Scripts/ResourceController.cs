@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class ResourceController : MonoBehaviour {
@@ -24,11 +23,7 @@ public class ResourceController : MonoBehaviour {
         CreateTreeResource(40);
         CreateStoneResource(25);
 
-        NavMeshSurface navMeshSurface = GameObject.Find("NavMesh").GetComponent<NavMeshSurface>();
-        if (navMeshSurface != null)
-            navMeshSurface.BuildNavMesh();
-        else
-            Debug.Log("NavMesh is null; cannot bake nav mesh");
+        HelperFunctions.bakeNavMeshes();
     }
 
     void CreateTreeResource(int amount)
@@ -40,7 +35,8 @@ public class ResourceController : MonoBehaviour {
                 treePrefab[random],
                 level_resources
             );
-            tree.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
+            //tree.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
+            tree.transform.position = HelperFunctions.randomPosition(200f, 200f, 1.5f);
             Tree treeComp = tree.AddComponent<Tree>();
 
             float remaining = UnityEngine.Random.Range(5f, 20f);
@@ -61,7 +57,8 @@ public class ResourceController : MonoBehaviour {
                 stonePrefab[random],
                 level_resources
             );
-            stone.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
+            //stone.transform.position = new Vector3(Random.Range(-200, 200f), 0f, Random.Range(-200f, 200f));
+            stone.transform.position = HelperFunctions.randomPosition(200f, 200f, 1.5f);
             Stone stoneComp = stone.AddComponent<Stone>();
 
             float remaining = UnityEngine.Random.Range(5f, 15f);

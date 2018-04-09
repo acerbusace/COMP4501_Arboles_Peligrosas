@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HelperFunctions {
     public static bool containsTag(string tagToFind, string tagsToSearchStr) {
@@ -77,5 +78,41 @@ public class HelperFunctions {
         gb.transform.rotation = Quaternion.LookRotation(newDir);
 
         return returnValue;
+    }
+
+    public static bool bakeNavMeshes() {
+        GameObject navMesh = GameObject.Find("NavMesh");
+
+        if (navMesh != null) {
+            NavMeshSurface[] navMeshSurface = GameObject.Find("NavMesh").GetComponents<NavMeshSurface>();
+            foreach (NavMeshSurface nav in navMeshSurface) {
+                nav.BuildNavMesh();
+            }
+        }
+
+        Debug.Log("NavMesh is null and hence cannot bake");
+        return false;
+    }
+
+    public static Vector3 randomPosition(float xRange, float zRange, float radius) {
+        Vector3 position;
+        Collider[] hitColliders;
+
+        bool run;
+        do {
+            run = false;
+            position = new Vector3(UnityEngine.Random.Range(-xRange, xRange), 0f, UnityEngine.Random.Range(-zRange, zRange));
+
+            hitColliders = Physics.OverlapSphere(position, radius);
+            foreach (Collider hit in hitColliders) {
+                if (!containsTag("Ground", hit.gameObject.tag)) {
+                    Debug.Log("pos: " + position + " >> " + hit.gameObject.tag);
+
+                    run = true;
+                }
+            }
+        } while (run);
+
+        return position;
     }
 }

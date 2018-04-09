@@ -11,16 +11,15 @@ public class PlayerController : Friendly
     private float damage;
     private float attackCoolDown;
     private float attackingFov;
+    protected float rotationSpeed;
 
     void Start()
     {
         unitName = "Player";
         unitHealth = 200f;
-        speed = 100f;
         gatherSpeed = 1f;
         gatherDistance = 7.5f;
         rotationSpeed = 15f;
-        maxVelocity = 10f;
 
         attackingRadius = GetComponent<Collider>().bounds.extents.magnitude + 1f;
         damage = 35f;
@@ -54,20 +53,13 @@ public class PlayerController : Friendly
 
     public void queueAttack(GameObject attacking)
     {
-        actions.Add(new PlayerAttackController(gameObject, attacking, speed, maxVelocity, rotationSpeed, attackingRadius, damage, attackCoolDown, attackingFov));
+        actions.Add(new PlayerAttackController(gameObject, attacking, rotationSpeed, attackingRadius, damage, attackCoolDown, attackingFov));
     }
 
     public void attack(GameObject attacking)
     {
         clear();
         queueAttack(attacking);
-    }
-
-
-    public override void updateSFInfo()
-    {
-        base.updateSFInfo();
-        HelperFunctions.addToDict(sfInfo.info, "Speed", ((int)speed).ToString());
     }
 }
 
