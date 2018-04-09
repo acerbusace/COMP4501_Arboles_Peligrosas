@@ -20,7 +20,7 @@ public class ResourceController : MonoBehaviour {
         stone = 69;
 
         resources = new List<GameObject>();
-        CreateTreeResource(40);
+        CreateTreeResource(120);
         CreateStoneResource(25);
 
         //HelperFunctions.bakeNavMeshes();

@@ -34,8 +34,10 @@ public class PlayerController : Friendly
     {
         base.update();
         float move = GetComponent<NavMeshAgent>().velocity.magnitude;
+        float health = unitHealth;
         bool action;
         anim.SetFloat("speed", move);
+        anim.SetFloat("health", health);
         if (actions.Count > 0)
         {
             if (actions[0].GetType() == typeof(Gather))
