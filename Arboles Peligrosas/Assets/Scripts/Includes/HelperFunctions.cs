@@ -94,14 +94,14 @@ public class HelperFunctions {
         return false;
     }
 
-    public static Vector3 randomPosition(float xRange, float zRange, float radius) {
+    public static Vector3 randomPosition(float xRange, float zRange, float radius, Vector3 pos = new Vector3()) {
         Vector3 position;
         Collider[] hitColliders;
 
         bool run;
         do {
             run = false;
-            position = new Vector3(UnityEngine.Random.Range(-xRange, xRange), 0f, UnityEngine.Random.Range(-zRange, zRange));
+            position = pos + new Vector3(UnityEngine.Random.Range(-xRange, xRange), 0f, UnityEngine.Random.Range(-zRange, zRange));
 
             hitColliders = Physics.OverlapSphere(position, radius);
             foreach (Collider hit in hitColliders) {
