@@ -7,6 +7,11 @@ public class ResourceController : MonoBehaviour {
 
     private float wood;
     private float stone;
+    private float time;
+    private int level;
+
+    public GameObject tigerPrefab;
+    public GameObject wolfPrefab;
 
     private List<GameObject> resources;
     public List<GameObject> treePrefab;
@@ -18,12 +23,30 @@ public class ResourceController : MonoBehaviour {
     {
         wood = 69;
         stone = 69;
+        time = 20f;
+        level = 1;
 
         resources = new List<GameObject>();
-        CreateTreeResource(120);
+        CreateTreeResource(150);        //Increase the number of trees here when you'd like
         CreateStoneResource(25);
 
         //HelperFunctions.bakeNavMeshes();
+    }
+
+    void Update()
+    {
+        time -= Time.deltaTime;
+        if (time < 0)
+        {
+            time = 120f;
+            spawnEnemies();
+            level++;
+        }
+    }
+
+    public int getTime()
+    {
+        return (int)time;
     }
 
     void CreateTreeResource(int amount)
@@ -119,5 +142,25 @@ public class ResourceController : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    void spawnEnemies()
+    {
+        for (int i=0; i < level*2; i++)
+        {
+            GameObject o = Instantiate(wolfPrefab);
+            o.transform.position = HelperFunctions.randomPosition();
+        }
+        
+        for (int i=0; i < level*2; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                Vector3 center = HelperFunctions.randomPosition();
+                GameObject o = Instantiate(tigerPrefab);
+                o.GetComponent<TigerController>();
+                o.transform.position = center + (new Vector3(3*j, 0, 0));
+            }
+        }
     }
 }

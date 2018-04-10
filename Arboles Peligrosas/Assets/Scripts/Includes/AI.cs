@@ -5,14 +5,12 @@ using UnityEngine;
 public class AI : MonoBehaviour {
 
     SteeringController steering;
-    Terrain terrain;
     GameObject target;
     float visionRange;
 
 	// Use this for initialization
 	void Start () {
         steering = GetComponent<SteeringController>();
-        terrain = FindObjectOfType<Terrain>();
         target = null;
         visionRange = 30f;
 	}
@@ -69,24 +67,12 @@ public class AI : MonoBehaviour {
     {
         if (!steering.hasPath())
         {
-            //for (int i = 0; i < 5; i++)
-            //    steering.addDestination(randomPosition());
+            for (int i = 0; i < 5; i++)
+                steering.addDestination(HelperFunctions.randomPosition());
 
-            Debug.Log("calling set destination");
-            steering.setDestination(randomPosition());
+            //Debug.Log("calling set destination");
+            //steering.setDestination(HelperFunctions.randomPosition());
         }
-    }
-
-    Vector3 randomPosition()
-    {
-        Vector3 size = terrain.terrainData.size;
-        Vector3 pos = terrain.transform.position;
-
-        return new Vector3(
-            Random.Range(pos.x - size.x / 2, pos.x + size.x / 2),
-            0f,
-            Random.Range(pos.z - size.z / 2, pos.z + size.z / 2)
-        );
     }
 
 }

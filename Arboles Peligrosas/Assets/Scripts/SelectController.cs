@@ -10,6 +10,7 @@ public class SelectController : MonoBehaviour {
     private string sfTag;
     // used for multi select and queueing actions
     private bool shiftModifier;
+    public GameObject player;
 
     // Use this for initialization
     void Start () {
@@ -26,6 +27,8 @@ public class SelectController : MonoBehaviour {
             shiftModifier = true;
         if (Input.GetKeyUp(KeyCode.LeftShift))
             shiftModifier = false;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            selectPlayer();
 
         // remove selected units which no longer exist
         selectedFrames.RemoveAll(GameObject => GameObject == null);
@@ -35,6 +38,12 @@ public class SelectController : MonoBehaviour {
             if (!IsPointerOverUIObject())
                 setSelectableUnit(Camera.main.ScreenPointToRay(Input.mousePosition));
         }
+    }
+
+    void selectPlayer()
+    {
+        selectedFrames.Clear();
+        selectedFrames.Add(player);
     }
 
     void setSelectableUnit(Ray ray)

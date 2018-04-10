@@ -26,7 +26,7 @@ public class SteeringController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        pathRadius = 10f;
+        pathRadius = 25f;
         wanderRadius = 3f;
         wanderAngle = 10f;
 

@@ -33,6 +33,11 @@ public class PlayerController : Friendly
         agent = GetComponent<NavMeshAgent>();
     }
 
+    void OnDestroy()
+    {
+        Application.Quit();
+    }
+
     public override void update()
     {
         base.update();

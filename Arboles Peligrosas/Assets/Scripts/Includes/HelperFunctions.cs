@@ -15,6 +15,19 @@ public class HelperFunctions {
         return false;
     }
 
+    public static Vector3 randomPosition()
+    {
+        Terrain terrain = GameObject.FindObjectOfType<Terrain>();
+        Vector3 size = terrain.terrainData.size;
+        Vector3 pos = terrain.transform.position;
+
+        return new Vector3(
+            UnityEngine.Random.Range(pos.x - size.x / 2, pos.x + size.x / 2),
+            0f,
+            UnityEngine.Random.Range(pos.z - size.z / 2, pos.z + size.z / 2)
+        );
+    }
+
     public static bool containsTag(List<string> tagsToFind, string tagsToSearchStr) {
         string[] tagsToSearch = tagsToSearchStr.Split(',');
 

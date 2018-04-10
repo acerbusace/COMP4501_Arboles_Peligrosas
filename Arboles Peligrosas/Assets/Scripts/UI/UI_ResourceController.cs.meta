@@ -1,11 +1,16 @@
 fileFormatVersion: 2
 guid: 662cf57a3335b9d47876a5851524a271
-timeCreated: 1520483160
+timeCreated: 1523384887
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - canvasPrefab: {fileID: 1426637180031558, guid: 7dfedbc4a768b4440a7b4547908d4375,
+      type: 2}
+  - resourcePannelPrefab: {fileID: 1709147300660618, guid: 6b9ebd377d7e90c4394ffdfa5fac7726,
+      type: 2}
+  - resourceController: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

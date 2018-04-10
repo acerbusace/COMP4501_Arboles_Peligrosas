@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8c9e7904f69d8c24d9fe8a127917182b
+timeCreated: 1523384155
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - tigerPrefab: {fileID: 1832912642061640, guid: 1dc29404d1cc3294bb3a9e06118eb0b4,
+      type: 2}
+  - wolfPrefab: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 2}
+  - level_resources: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

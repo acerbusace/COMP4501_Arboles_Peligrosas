@@ -8,6 +8,7 @@ public class UI_ResourceController : MonoBehaviour {
     public GameObject canvasPrefab;
     public GameObject resourcePannelPrefab;
     private Text WoodText;
+    private Text SpawnTimer;
     private Text StoneText;
 
     public ResourceController resourceController;
@@ -26,11 +27,13 @@ public class UI_ResourceController : MonoBehaviour {
         //GameObject resourcePannel = Instantiate(resourcePannelPrefab);
         WoodText = resourcePannel.transform.Find("WoodText").GetComponent<Text>();
         StoneText = resourcePannel.transform.Find("StoneText").GetComponent<Text>();
+        SpawnTimer = resourcePannel.transform.Find("SpawnTimer").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         WoodText.text = "Wood: " + ((int)resourceController.getWood()).ToString();
         StoneText.text = "Stone: " + ((int)resourceController.getStone()).ToString();
+        SpawnTimer.text = "Time to next wave: " + Mathf.Floor(resourceController.getTime() / 60) + ":" + (resourceController.getTime() % 60 < 10 ? ("0" + (resourceController.getTime() % 60).ToString()) : (resourceController.getTime() % 60).ToString());
 	}
 }

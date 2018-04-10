@@ -10,8 +10,8 @@ public class CameraController : MonoBehaviour
 
     private Vector3 velocity = new Vector3();
     private float maxVelocity = 30f;
-    private float minDist = 10f;
-    private float maxDist = 35f;
+    private float minDist = 5f;
+    private float maxDist = 30f;
 
     private float speed = 25f;
     private float minSpeed = 10f;
