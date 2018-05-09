@@ -1,2 +1,6 @@
-# COMP4501_COMP4501_Arboles_Peligrosas
-COMP4501 - Final Game Project
+# Arboles Peligrosas
+COMP4501 (Advanced Facilities for Real-Time Games) - Final Game Project
+
+## How to Play
+Open "Arboles Peligrosas" folder in Unity
+Press the play button
